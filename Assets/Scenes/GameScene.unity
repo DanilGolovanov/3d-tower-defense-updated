@@ -33432,8 +33432,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 308.5, y: -102.899994}
-  m_SizeDelta: {x: 575.2, y: 205.8}
+  m_AnchoredPosition: {x: 308.5, y: -105.9}
+  m_SizeDelta: {x: 575.2, y: 211.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &984550905
 MonoBehaviour:
@@ -46405,6 +46405,8 @@ MonoBehaviour:
   attack_Point: {fileID: 1950576569}
   crosshair: {fileID: 0}
   fireRate: 15
+  ammoText: {fileID: 1625394832}
+  BuckshotAmmoText: {fileID: 971688509}
   currentAmmo: 0
   buckshotCurrentAmmo: 0
   isReloading: 0
@@ -48127,6 +48129,9 @@ MonoBehaviour:
   - {fileID: 1377888231}
   - {fileID: 1441238117}
   - {fileID: 1571642736}
+  pistolUI: {fileID: 283881239}
+  shotgunUI: {fileID: 1450874384}
+  meleeUI: {fileID: 379549017}
 --- !u!1 &1409568791 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 28b7e53c2726147479b9fded4ad0dc5e,
@@ -49297,6 +49302,8 @@ MonoBehaviour:
   attack_Point: {fileID: 0}
   crosshair: {fileID: 521200823}
   fireRate: 15
+  ammoText: {fileID: 1625394832}
+  BuckshotAmmoText: {fileID: 971688509}
   currentAmmo: 0
   buckshotCurrentAmmo: 0
   isReloading: 0
@@ -54383,6 +54390,8 @@ MonoBehaviour:
   attack_Point: {fileID: 0}
   crosshair: {fileID: 521200823}
   fireRate: 15
+  ammoText: {fileID: 1625394832}
+  BuckshotAmmoText: {fileID: 971688509}
   currentAmmo: 0
   buckshotCurrentAmmo: 0
   isReloading: 0
@@ -67107,7 +67116,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1954559370}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 15, z: 2}
+  m_LocalPosition: {x: 0, y: 15, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1409198622}

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TowerDefence.Managers;
 using TowerDefence.Enemies;
 
@@ -24,7 +25,6 @@ public enum WeaponBulletType {
 public class WeaponHandler : MonoBehaviour {
 
     private Animator anim;
-
     public WeaponAim weapon_Aim;
 
     [SerializeField]
@@ -41,17 +41,22 @@ public class WeaponHandler : MonoBehaviour {
 
     public float fireRate = 15f;
 
+    //ammo system
+    //ammo UI text
+    public Text ammoText;
+    public Text BuckshotAmmoText;
+    //ammo variables
     public int currentAmmo;
     public int buckshotCurrentAmmo;
     private int maxAmmo = 6;
     private int buckShotMaxAmmo = 2;
     private float reloadTime = 2f;
     public bool isReloading = false;
+    private float nextTimeToFire;
     public float damage = 20f;
-
+    //references
     Camera mainCam;
     WeaponManager weaponManager;
-    private float nextTimeToFire;
 
     void Awake() 
     {
@@ -91,6 +96,8 @@ public class WeaponHandler : MonoBehaviour {
             StartCoroutine(ReloadShotgun());
             return;
         }
+        ammoText.text = currentAmmo + "/" + maxAmmo;
+        BuckshotAmmoText.text = buckshotCurrentAmmo + "/" + buckShotMaxAmmo;
     }
 
     //Visual events to be called during animations
