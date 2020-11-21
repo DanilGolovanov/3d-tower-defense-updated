@@ -17,16 +17,18 @@ public class PlayerAdvancedMovement : MonoBehaviour
     private float crouchingHeight = 1f;
     private bool isCrouching;
 
+    public float sprintTreshold = 10f;
+
     public GameObject arms;
     Animator anim;
 
     private PlayerAudio playerAudio;
-    private float sprint_Volume = 1f;
-    private float crouch_Volume = 0.1f;
-    private float walk_Volume_Min = 0.2f, walk_Volume_Max = 0.6f;
-    private float walk_Step_Distance = 0.4f;
-    private float sprint_Step_Distance = 0.25f;
-    private float crouch_Step_Distance = 0.5f;
+    private float sprintVolume = 1f;
+    private float crouchVolume = 0.1f;
+    private float walkVolumeMin = 0.2f, walk_Volume_Max = 0.6f;
+    private float walkStepDistance = 0.4f;
+    private float sprintStepDistance = 0.25f;
+    private float crouchStepDistance = 0.5f;
 
     // Start is called before the first frame update
     void Awake()
@@ -39,9 +41,9 @@ public class PlayerAdvancedMovement : MonoBehaviour
 
     private void Start()
     {
-        playerAudio.volume_Min = walk_Volume_Min;
+        playerAudio.volume_Min = walkVolumeMin;
         playerAudio.volume_Max = walk_Volume_Max;
-        playerAudio.step_Distance = walk_Step_Distance;
+        playerAudio.step_Distance = walkStepDistance;
     }
 
     void Update()
@@ -54,24 +56,46 @@ public class PlayerAdvancedMovement : MonoBehaviour
     //will circle back here a later stage to add stamina 
     void Sprint()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !isCrouching)
+        if(GameManager.currentStamina > 0f)
         {
-            playerMovement.speed = sprintSpeed;
-            anim.SetBool("isSprinting", true);
-            playerAudio.step_Distance = sprint_Step_Distance;
-            playerAudio.volume_Min = sprint_Volume;
-            playerAudio.volume_Max = sprint_Volume;
+            if (Input.GetKeyDown(KeyCode.LeftShift) && !isCrouching)
+            {
+                playerMovement.speed = sprintSpeed;
+                anim.SetBool("isSprinting", true);
+                playerAudio.step_Distance = sprintStepDistance;
+                playerAudio.volume_Min = sprintVolume;
+                playerAudio.volume_Max = sprintVolume;
 
+            }
         }
+
         if (Input.GetKeyUp(KeyCode.LeftShift) && !isCrouching)
         {
             playerMovement.speed = moveSpeed;
             anim.SetBool("isSprinting", false);
-            playerAudio.step_Distance = walk_Step_Distance;
-            playerAudio.volume_Min = walk_Volume_Min;
+            playerAudio.step_Distance = walkStepDistance;
+            playerAudio.volume_Min = walkVolumeMin;
             playerAudio.volume_Max = walk_Volume_Max;
         }
+
+        if (Input.GetKey(KeyCode.LeftShift) && !isCrouching)
+        {
+            GameManager.currentStamina -= sprintTreshold * Time.deltaTime;
+
+            if (GameManager.currentStamina <= 0f)
+            {
+
+                GameManager.currentStamina = 0f;
+
+                // reset the speed and sound
+                playerMovement.speed = moveSpeed;
+                playerAudio.step_Distance = walkStepDistance;
+                playerAudio.volume_Min = walkVolumeMin;
+                playerAudio.volume_Max = walk_Volume_Max;
+            }
+        }
     }
+
     void Crouch()
     {
         if (Input.GetKeyDown(KeyCode.C))
@@ -80,8 +104,8 @@ public class PlayerAdvancedMovement : MonoBehaviour
             {
                 lookRoot.localPosition = new Vector3(0f, standingHeight, 0f); //default standing height is 
                 playerMovement.speed = moveSpeed;
-                playerAudio.step_Distance = walk_Step_Distance;
-                playerAudio.volume_Min = walk_Volume_Min;
+                playerAudio.step_Distance = walkStepDistance;
+                playerAudio.volume_Min = walkVolumeMin;
                 playerAudio.volume_Max = walk_Volume_Max;
 
                 isCrouching = false;
@@ -90,9 +114,9 @@ public class PlayerAdvancedMovement : MonoBehaviour
             {
                 lookRoot.localPosition = new Vector3(0f, crouchingHeight, 0f);
                 playerMovement.speed = crouchSpeed;
-                playerAudio.step_Distance = crouch_Step_Distance;
-                playerAudio.volume_Min = crouch_Volume;
-                playerAudio.volume_Max = crouch_Volume;
+                playerAudio.step_Distance = crouchStepDistance;
+                playerAudio.volume_Min = crouchVolume;
+                playerAudio.volume_Max = crouchVolume;
 
                 isCrouching = true;
             }

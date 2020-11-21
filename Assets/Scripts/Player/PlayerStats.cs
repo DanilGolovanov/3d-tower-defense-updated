@@ -20,7 +20,7 @@ public class PlayerStats : MonoBehaviour
     }
     void StaminaChange()
     {
-        float amount = Mathf.Clamp01(GameManager.instance.currentStamina / GameManager.instance.maxStamina);
+        float amount = Mathf.Clamp01(GameManager.currentStamina / GameManager.instance.maxStamina);
         staminaBar.fillAmount = amount;
     }
 }
