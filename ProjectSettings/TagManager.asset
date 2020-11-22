@@ -9,6 +9,8 @@ TagManager:
   - Crosshair
   - Enemy
   - Melee
+  - TowerTop
+  - TowerBase
   layers:
   - Default
   - TransparentFX

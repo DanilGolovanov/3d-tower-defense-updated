@@ -16,7 +16,10 @@ public class TowerMenu : MonoBehaviour
 
     private TowerPlatform currentTowerPlatform;
     private bool towerExists;
+
     private TowerCheck currentTower;
+
+    private DefaultTower defaultTower;
 
     // Start is called before the first frame update
     void Start()
@@ -26,11 +29,11 @@ public class TowerMenu : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    { 
 
     }
 
-    public void PurchaseTowerOne()
+    public void PurchaseTower()
     {
         TowerManager.instance.PurchaseTower(currentTowerPlatform);
         towerExists = true;
@@ -48,7 +51,38 @@ public class TowerMenu : MonoBehaviour
 
     public void UpgradeTower()
     {
+        // save upgraded tower level
+        int level = currentTower.GetComponent<DefaultTower>().level + 1;
+        // destroy existing tower to build an upgraded one
+        Destroy(currentTower.gameObject);
+        // initialize an empty gameObject
+        GameObject towerHolder = new GameObject();
+        towerHolder.AddComponent<TowerCheck>();
+        towerHolder.AddComponent<DefaultTower>();
+        // create empty gameObject which will hold all parts of the tower (one/multiple bases and top of the tower)
+        Instantiate(towerHolder);
+        // make the empty gameObject child of the current platform
+        towerHolder.transform.SetParent(currentTowerPlatform.GetComponent<Transform>().Find("Tower Holder"));
+        // set up position of the empty gameObject (just in case)
+        towerHolder.transform.localPosition = Vector3.zero;
 
+        float towerTopHeight = 0;
+        // build required number of base levels
+        for (int i = 0; i < level - 1; i++)
+        {
+            Transform towerBase = Instantiate(GameAssets.GetInstance().towerBase);
+            towerBase.SetParent(towerHolder.transform);
+            towerTopHeight = towerBase.GetComponent<Collider>().bounds.size.y / 2 + towerBase.GetComponent<Collider>().bounds.size.y * i;
+            towerBase.localPosition = new Vector3(0, towerTopHeight, 0);
+        }
+        // build the tower top       
+        Transform towerTop = Instantiate(GameAssets.GetInstance().towerTop);
+        // Y position of the tower top 
+        towerTopHeight += towerTop.GetComponent<Collider>().bounds.size.y;
+        towerTop.SetParent(towerHolder.transform);
+        towerTop.localPosition = new Vector3(0, towerTopHeight, 0);
+
+        currentTower.GetComponent<DefaultTower>().level = level;
     }
 
     private void OnTriggerEnter(Collider other)

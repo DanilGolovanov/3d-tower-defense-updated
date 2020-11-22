@@ -7,7 +7,7 @@ using TowerDefence.Managers;
 namespace TowerDefence.Towers
 {
 
-    public abstract class Tower : MonoBehaviour
+    public class Tower : MonoBehaviour
     {
         #region examplecode
         /*public string towerName = "Tower"; //adding a title to unity editor as string varaible
@@ -127,7 +127,7 @@ namespace TowerDefence.Towers
         [SerializeField, Min(1)]
         private float experienceScaler = 1;
 
-        private int level = 1;
+        public int level = 1;
         private float xp = 0;
         private Enemy target = null;
 
@@ -167,8 +167,8 @@ namespace TowerDefence.Towers
         }
 
 
-        protected abstract void RenderAttackVisuals();
-        protected abstract void RenderLevelUpVisuals();
+        protected virtual void RenderAttackVisuals() { }
+        protected virtual void RenderLevelUpVisuals() { }
 
 
         private void Fire()
@@ -212,10 +212,17 @@ namespace TowerDefence.Towers
 
         private void Target()
         {
-            //get enemies within range
-            Enemy[] closeEnemies = EnemyManager.instance.GetClosestEnemies(transform, MaximumRange, minimumRange);
-            //GetClosestEnemy();
-            target = GetClosestEnemy(closeEnemies);
+            try
+            {
+                //get enemies within range
+                Enemy[] closeEnemies = EnemyManager.instance.GetClosestEnemies(transform, MaximumRange, minimumRange);
+                //GetClosestEnemy();
+                target = GetClosestEnemy(closeEnemies);
+            }
+            catch (System.Exception)
+            {
+
+            }
         }
 
         // _enemies is the array of closest enemies within range
