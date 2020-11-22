@@ -13,7 +13,7 @@ namespace TowerDefence.Towers
 
         private void OnMouseUpAsButton()
         {
-            TowerManager.instance.PurchaseTower(this);
+            // TowerManager.instance.PurchaseTower(this);
         }
 
         public void AddTower(Tower _tower)
