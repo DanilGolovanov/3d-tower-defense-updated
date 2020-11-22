@@ -5,8 +5,10 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     private WeaponManager weaponManager;
+    public static bool reloadCheck;
 
     private bool attackCooldown = false;
+
 
     void Awake()
     {
@@ -21,7 +23,7 @@ public class PlayerAttack : MonoBehaviour
 
     void WeaponShoot()
     {
-        if (Input.GetMouseButtonDown(0) && !attackCooldown)
+        if (Input.GetMouseButtonDown(0) && !attackCooldown && !reloadCheck)
         {
             // handle melee
             if (weaponManager.GetCurrentSelectedWeapon().tag == Tags.MELEE_TAG)

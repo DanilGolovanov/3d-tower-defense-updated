@@ -52,7 +52,6 @@ public class WeaponHandler : MonoBehaviour {
     private int buckShotMaxAmmo = 2;
     private float reloadTime = 2f;
     public bool isReloading = false;
-    private float nextTimeToFire;
     public float damage = 20f;
     //references
     Camera mainCam;
@@ -182,6 +181,15 @@ public class WeaponHandler : MonoBehaviour {
         buckshotCurrentAmmo = buckShotMaxAmmo;
         isReloading = false;
         Debug.Log("Reload Complete..");
+    }
+    //animation event reload block toggle
+    public void ReloadBlock()
+    {
+      PlayerAttack.reloadCheck = true;
+    }
+    public void ReloadBlockOff()
+    {
+        PlayerAttack.reloadCheck = false;
     }
     public void BulletFired()
     {
