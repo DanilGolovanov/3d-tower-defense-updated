@@ -12,11 +12,13 @@ namespace TowerDefence.Managers
         [SerializeField]
         private GameObject enemyPrefab;
 
-        public List<Enemy> aliveEnemies = new List<Enemy>();
+        public Transform[] spawnPoints;
+        private List<Enemy> aliveEnemies = new List<Enemy>();
 
         public void SpawnEnemy(Transform _spawner)
         {
-            GameObject newEnemy = Instantiate(enemyPrefab, _spawner.position, enemyPrefab.transform.rotation);
+            Transform _sp = spawnPoints[Random.Range(0, spawnPoints.Length)];
+            GameObject newEnemy = Instantiate(enemyPrefab, _sp.position, _sp.transform.rotation);
             aliveEnemies.Add(newEnemy.GetComponent<Enemy>());
         }
 

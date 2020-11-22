@@ -8,71 +8,103 @@ namespace TowerDefence.Enemies
 
     public class Spawner : MonoBehaviour
     {
-        //properties
-        public float SpawnRate
+        public enum SpawnPhase { SPAWNING, WAITING, COUNTING }
+
+        [System.Serializable]
+        public class Wave
         {
-            get
-            {
-                return spawnRate;
-            }
+            public string name;
+            public Transform enemy;
+            public int numberOfEnemies;
+            public float delayBetweenEnemySpawn;
         }
-        //variables
-        [SerializeField]
-        private float spawnRate = 1;
+        public Wave[] waves;
+        private int nextWave = 0;
+        public float timeBetweenWaves = 5;
+        private float wavesCountDown;
+        private float enemyCheck = 1f;
 
-        private float currentTime = 0;
-
+        public SpawnPhase state = SpawnPhase.COUNTING;
         private EnemyManager enemyManager;
 
-        // Start is called before the first frame update
         void Start()
         {
+            wavesCountDown = timeBetweenWaves;
             enemyManager = EnemyManager.instance;
         }
 
-        // Update is called once per frame
         void Update()
         {
-            // Increment the time by delta time if the current time is less than the SpawnRate
-            if (currentTime < SpawnRate)
+            if (state == SpawnPhase.WAITING)
             {
-                currentTime += Time.deltaTime;
+                if (!EnemyIsAlive())
+                {
+                    WaveCompleted();                
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            if (wavesCountDown <= 0)
+            {
+                if (state != SpawnPhase.SPAWNING)
+                {
+                    StartCoroutine(SpawnWave(waves[nextWave]));
+                }
             }
             else
             {
-                currentTime = 0;
-                //Attempt to spawn the enemy via EnemyManager Singleton
-                if (enemyManager != null)
-                {
-                    enemyManager.SpawnEnemy(transform);
-                }
+                wavesCountDown -= Time.deltaTime;
             }
         }
 
-        //public int waveNumber;
-       // public int enemySpawnAmount;
-        //public static int eneimesKilled;
-        //void StartWave()
-        //{
-            //waveNumber = 1;
-            //enemySpawnAmount = 2;
-            //eneimesKilled = 0;
+        IEnumerator SpawnWave(Wave _wave)
+        {
+            state = SpawnPhase.SPAWNING;
 
-            //for (int i = 0; i < enemySpawnAmount; i++)
-            //{
-                //enemyManager.SpawnEnemy(transform);
-            //}
-        //}
-        //void NextWave()
-        //{
-            //waveNumber++;
-            //enemySpawnAmount += 2; //increase spawn amount by varaible
-            //eneimesKilled = 0;
+            for (int i = 0; i < _wave.numberOfEnemies; i++)
+            {
+                enemyManager.SpawnEnemy(transform);
+                yield return new WaitForSeconds(1f / _wave.delayBetweenEnemySpawn);
+            }
 
-            //for (int i = 0; i < enemySpawnAmount; i++)
-            //{
-                //enemyManager.SpawnEnemy(transform);
-            //}
-        //}
+            state = SpawnPhase.WAITING;
+
+            yield break;
+        }
+
+        void WaveCompleted()
+        {
+            state = SpawnPhase.COUNTING;
+            wavesCountDown = timeBetweenWaves;
+
+            if (nextWave + 1 > waves.Length - 1)
+            {
+                //call game over here
+                //temp code for testing loops back to 1st wave
+                nextWave = 0;
+                Debug.Log("All waves finished");
+            }
+            else
+            {
+                nextWave++;
+            }         
+        }
+        //checking if enemy are still active on heirachry once per second instead of every frame
+        bool EnemyIsAlive()
+        {
+            enemyCheck -= Time.deltaTime;
+            if (enemyCheck < 0f)
+            {
+                enemyCheck = 1f;
+                if (GameObject.FindGameObjectWithTag("Enemy") == null)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }
