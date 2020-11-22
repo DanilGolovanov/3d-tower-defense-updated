@@ -16,7 +16,6 @@ namespace TowerDefence.Enemies
                 return spawnRate;
             }
         }
-
         //variables
         [SerializeField]
         private float spawnRate = 1;
@@ -49,5 +48,31 @@ namespace TowerDefence.Enemies
                 }
             }
         }
+
+        //public int waveNumber;
+       // public int enemySpawnAmount;
+        //public static int eneimesKilled;
+        //void StartWave()
+        //{
+            //waveNumber = 1;
+            //enemySpawnAmount = 2;
+            //eneimesKilled = 0;
+
+            //for (int i = 0; i < enemySpawnAmount; i++)
+            //{
+                //enemyManager.SpawnEnemy(transform);
+            //}
+        //}
+        //void NextWave()
+        //{
+            //waveNumber++;
+            //enemySpawnAmount += 2; //increase spawn amount by varaible
+            //eneimesKilled = 0;
+
+            //for (int i = 0; i < enemySpawnAmount; i++)
+            //{
+                //enemyManager.SpawnEnemy(transform);
+            //}
+        //}
     }
 }

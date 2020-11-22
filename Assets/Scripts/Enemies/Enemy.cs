@@ -11,10 +11,7 @@ namespace TowerDefence.Enemies
     public class Enemy : MonoBehaviour
     {
         [System.Serializable]
-        public class DeathEvent : UnityEvent<Enemy>
-        {
-
-        }
+        public class DeathEvent : UnityEvent<Enemy>{}
         public float XP { get { return xp; } }
         public int Money { get { return money; } }
 

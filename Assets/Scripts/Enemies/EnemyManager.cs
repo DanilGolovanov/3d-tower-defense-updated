@@ -12,7 +12,7 @@ namespace TowerDefence.Managers
         [SerializeField]
         private GameObject enemyPrefab;
 
-        private List<Enemy> aliveEnemies = new List<Enemy>();
+        public List<Enemy> aliveEnemies = new List<Enemy>();
 
         public void SpawnEnemy(Transform _spawner)
         {
