@@ -21510,8 +21510,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 100
   maxHealth: 100
-  currentStamina: 100
-  maxStamina: 100
 --- !u!4 &657220043
 Transform:
   m_ObjectHideFlags: 0
@@ -26903,6 +26901,80 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6439133, y: 0.64391315, z: 1.2210507}
   m_Center: {x: 0.000026971102, y: -0.00004026293, z: 0.60657966}
+--- !u!1001 &816581596
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 329507226514946144, guid: 15c5d3368a78b6e479c551dcf994ffe9,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5897a87a78ae32e4aa5f55213c5214a2, type: 2}
+    - target: {fileID: 329507226514946147, guid: 15c5d3368a78b6e479c551dcf994ffe9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 329507226514946147, guid: 15c5d3368a78b6e479c551dcf994ffe9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 329507226514946147, guid: 15c5d3368a78b6e479c551dcf994ffe9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 329507226514946147, guid: 15c5d3368a78b6e479c551dcf994ffe9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 329507226514946147, guid: 15c5d3368a78b6e479c551dcf994ffe9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 329507226514946147, guid: 15c5d3368a78b6e479c551dcf994ffe9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 329507226514946147, guid: 15c5d3368a78b6e479c551dcf994ffe9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 329507226514946147, guid: 15c5d3368a78b6e479c551dcf994ffe9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 329507226514946147, guid: 15c5d3368a78b6e479c551dcf994ffe9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 329507226514946147, guid: 15c5d3368a78b6e479c551dcf994ffe9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 329507226514946147, guid: 15c5d3368a78b6e479c551dcf994ffe9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 329507226514946158, guid: 15c5d3368a78b6e479c551dcf994ffe9,
+        type: 3}
+      propertyPath: m_Name
+      value: Fade
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 15c5d3368a78b6e479c551dcf994ffe9, type: 3}
 --- !u!1001 &817675227
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48073,6 +48145,7 @@ MonoBehaviour:
   sprintSpeed: 10
   moveSpeed: 5
   crouchSpeed: 2
+  sprintTreshold: 10
   arms: {fileID: 1377888228}
 --- !u!114 &1409198624
 MonoBehaviour:
@@ -49368,7 +49441,7 @@ Transform:
   m_GameObject: {fileID: 1441238116}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.13, y: -0.5, z: 2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 752306510}
   m_RootOrder: 1
@@ -54364,7 +54437,7 @@ Transform:
   m_GameObject: {fileID: 1571642734}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.5, z: 1.8}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 752306510}
   m_RootOrder: 2

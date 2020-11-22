@@ -6,6 +6,8 @@ public class PlayerAttack : MonoBehaviour
 {
     private WeaponManager weaponManager;
 
+    private bool attackCooldown = false;
+
     void Awake()
     {
         weaponManager = GetComponent<WeaponManager>();
@@ -19,12 +21,14 @@ public class PlayerAttack : MonoBehaviour
 
     void WeaponShoot()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !attackCooldown)
         {
             // handle melee
             if (weaponManager.GetCurrentSelectedWeapon().tag == Tags.MELEE_TAG)
             {
                 weaponManager.GetCurrentSelectedWeapon().ShootAnimation();
+                Invoke("ResetAttackCooldown", 0.7f);
+                attackCooldown = true;
             }
             // handle shoot
             if (weaponManager.GetCurrentSelectedWeapon().bulletType == WeaponBulletType.BULLET)
@@ -32,15 +36,22 @@ public class PlayerAttack : MonoBehaviour
                 weaponManager.GetCurrentSelectedWeapon().ShootAnimation();
                 weaponManager.GetCurrentSelectedWeapon().RemoveAmmo();
                 weaponManager.GetCurrentSelectedWeapon().BulletFired();
+                Invoke("ResetAttackCooldown", 0.7f);
+                attackCooldown = true;
             }
             if (weaponManager.GetCurrentSelectedWeapon().bulletType == WeaponBulletType.BUCKSHOT)
             {
                 weaponManager.GetCurrentSelectedWeapon().ShootAnimation();
                 weaponManager.GetCurrentSelectedWeapon().RemoveBuckshot();
                 weaponManager.GetCurrentSelectedWeapon().BulletFired();
+                Invoke("ResetAttackCooldown", 0.7f);
+                attackCooldown = true;
             }
         }
-
+    }
+    void ResetAttackCooldown()
+    {
+        attackCooldown = false;
     }
 }
 

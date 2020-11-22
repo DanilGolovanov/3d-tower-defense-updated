@@ -6,7 +6,9 @@ public class WeaponManager : MonoBehaviour
 {
     [SerializeField]
     private WeaponHandler[] weapons;
-    private int current_Weapon_Index;
+    private int currentWeaponIndex;
+    private bool weaponSwapCooldown = false;
+
     //UI icons to display on weapon change
     public GameObject pistolUI;
     public GameObject shotgunUI;
@@ -14,54 +16,65 @@ public class WeaponManager : MonoBehaviour
 
     void Start () 
     {
-        current_Weapon_Index = 0;
-        weapons[current_Weapon_Index].gameObject.SetActive(true);
+        currentWeaponIndex = 0;
+        weapons[currentWeaponIndex].gameObject.SetActive(true);
         meleeUI.SetActive(true);
     }
     
     void Update () 
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1)) {
+        if(Input.GetKeyDown(KeyCode.Alpha1) && !weaponSwapCooldown) {
             TurnOnSelectedWeapon(0);
             meleeUI.SetActive(true);
             pistolUI.SetActive(false);
             shotgunUI.SetActive(false);
+            Invoke("ResetCooldown", 0.8f);
+            weaponSwapCooldown = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2)) {
+        if (Input.GetKeyDown(KeyCode.Alpha2) && !weaponSwapCooldown) {
             TurnOnSelectedWeapon(1);
             pistolUI.SetActive(true);
             shotgunUI.SetActive(false);
             meleeUI.SetActive(false);
+            Invoke("ResetCooldown", 0.8f);
+            weaponSwapCooldown = true;
         }
     
-        if (Input.GetKeyDown(KeyCode.Alpha3)) {
+        if (Input.GetKeyDown(KeyCode.Alpha3) && !weaponSwapCooldown) {
             TurnOnSelectedWeapon(2);
             shotgunUI.SetActive(true);
             pistolUI.SetActive(false);
             meleeUI.SetActive(false);
+            Invoke("ResetCooldown", 0.8f);
+            weaponSwapCooldown = true;
         }
     }
 
     void TurnOnSelectedWeapon(int weaponIndex) 
     {
 
-        if (current_Weapon_Index == weaponIndex)
+        if (currentWeaponIndex == weaponIndex)
             return;
 
         // turn of the current weapon
-        weapons[current_Weapon_Index].gameObject.SetActive(false);
+        weapons[currentWeaponIndex].gameObject.SetActive(false);
 
         // turn on the selected weapon
         weapons[weaponIndex].gameObject.SetActive(true);
 
         // store the current selected weapon index
-        current_Weapon_Index = weaponIndex;
+        currentWeaponIndex = weaponIndex;
+    }
+
+    void ResetCooldown()
+    {
+        weaponSwapCooldown = false;
     }
 
     public WeaponHandler GetCurrentSelectedWeapon() 
     {
-        return weapons[current_Weapon_Index];
+        return weapons[currentWeaponIndex];
     }
 }
 

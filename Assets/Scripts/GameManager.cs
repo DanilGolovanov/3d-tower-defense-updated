@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public float currentHealth = 100;
     public float maxHealth = 100;
     public static float currentStamina = 100;
-    public float maxStamina = 100;
+    public static float maxStamina = 100;
 
     private void Awake()
     {

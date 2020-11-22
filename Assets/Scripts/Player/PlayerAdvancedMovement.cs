@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//basic script to handle crouching and sprinting
+//basic script to handle crouching and sprinting control, animations for movement & stamina depletion/regeneration. 
 
 public class PlayerAdvancedMovement : MonoBehaviour
 {
@@ -53,7 +53,6 @@ public class PlayerAdvancedMovement : MonoBehaviour
         tempWalkAnimation();
     }
 
-    //will circle back here a later stage to add stamina 
     void Sprint()
     {
         if(GameManager.currentStamina > 0f)
@@ -92,6 +91,17 @@ public class PlayerAdvancedMovement : MonoBehaviour
                 playerAudio.step_Distance = walkStepDistance;
                 playerAudio.volume_Min = walkVolumeMin;
                 playerAudio.volume_Max = walk_Volume_Max;
+            }
+        }
+        else //regen stamina
+        {
+            if (GameManager.currentStamina != GameManager.maxStamina)
+            {
+                GameManager.currentStamina += (sprintTreshold / 2) * Time.deltaTime;
+            }
+            if (GameManager.currentStamina > GameManager.maxStamina)
+            {
+                GameManager.currentStamina = GameManager.maxStamina;
             }
         }
     }
