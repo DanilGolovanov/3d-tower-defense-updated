@@ -5,7 +5,6 @@ using TowerDefence.Managers;
 
 namespace TowerDefence.Enemies
 {
-
     public class Spawner : MonoBehaviour
     {
         public enum SpawnPhase { SPAWNING, WAITING, COUNTING }

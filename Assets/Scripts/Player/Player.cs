@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TowerDefence.Towers;
 
 namespace TowerDefence
@@ -15,6 +16,7 @@ namespace TowerDefence
 
         [SerializeField, Tooltip("sets the initial amount of money player has")]
         private int money = 100;
+        public Text moneyText;
 
         /// <summary>
         /// gives the player the passed amount of money
@@ -58,7 +60,7 @@ namespace TowerDefence
         // Update is called once per frame
         void Update()
         {
-
+            moneyText.text = "$ " + money.ToString();
         }
     }
 }
