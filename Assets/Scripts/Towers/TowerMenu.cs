@@ -55,6 +55,7 @@ public class TowerMenu : MonoBehaviour
         int level = currentTower.GetComponent<DefaultTower>().level + 1;
         // destroy existing tower to build an upgraded one
         Destroy(currentTower.gameObject);
+
         // create empty gameObject which will hold all parts of the tower (one/multiple bases and top of the tower)
         GameObject towerHolder = new GameObject("Tower");
         towerHolder.AddComponent<TowerCheck>();
@@ -73,6 +74,7 @@ public class TowerMenu : MonoBehaviour
             towerTopHeight = towerBase.GetComponent<Collider>().bounds.size.y / 2 + towerBase.GetComponent<Collider>().bounds.size.y * i;
             towerBase.localPosition = new Vector3(0, towerTopHeight, 0);
         }
+
         // build the tower top       
         Transform towerTop = Instantiate(GameAssets.GetInstance().towerTop);
         // Y position of the tower top 
@@ -80,6 +82,7 @@ public class TowerMenu : MonoBehaviour
         towerTop.SetParent(towerHolder.transform);
         towerTop.localPosition = new Vector3(0, towerTopHeight, 0);
 
+        // assign current tower and upgrade it to a new level
         currentTower = towerHolder.GetComponent<TowerCheck>();
         currentTower.GetComponent<DefaultTower>().level = level;
     }
