@@ -11,6 +11,19 @@ namespace TowerDefence.Enemies
     public class Enemy : MonoBehaviour
     {
         [System.Serializable]
+        public class WaypointInfo
+        {
+            public Vector3 wayPoint;
+            public bool IsWaypointReached(Vector3 movingObject, float deadZone = 0.3f)
+            {
+                if (Vector3.Distance(movingObject, wayPoint) < deadZone)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+        [System.Serializable]
         public class DeathEvent : UnityEvent<Enemy>{}
         public float XP { get { return xp; } }
         public int Money { get { return money; } }
@@ -30,6 +43,15 @@ namespace TowerDefence.Enemies
         [SerializeField, Tooltip("how big is the enemy visually")]
         private float size = 1;
         //resistance here
+
+        [Header("Waypoint System")]
+        public float moveSpeed = 5;
+        public float turnSpeed = 5;
+        public WaypointInfo[] wayPoints;
+        private WaypointInfo currentWayPoint;
+        private int currentWayPointIndex;
+        private Transform enemyTransform;
+
 
         [Header("Rewards")]
         [SerializeField, Tooltip("The amount of xp tower gets killing an enemy")]
@@ -61,6 +83,19 @@ namespace TowerDefence.Enemies
             onDeath.Invoke(this);
             //Visuals
         }
+        void Awake()
+        {
+            enemyTransform = transform; //assign the reference of Transform
+            if (wayPoints.Length > 0)
+            {
+                currentWayPoint = wayPoints[0];//set initial waypoint
+                currentWayPointIndex = 0;
+            }
+            else
+            {
+                Debug.LogError("No waypoint assigned");
+            }
+        }
 
         // Start is called before the first frame update
         void Start()
@@ -75,7 +110,25 @@ namespace TowerDefence.Enemies
         // Update is called once per frame
         void Update()
         {
+            //Turning the object to the target
+            enemyTransform.rotation = Quaternion.Lerp(enemyTransform.rotation, Quaternion.LookRotation(currentWayPoint.wayPoint - enemyTransform.position), Time.deltaTime * turnSpeed); 
+                                                                                                                                                                                     
+            enemyTransform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+            if (currentWayPoint.IsWaypointReached(enemyTransform.position))
+            {
+                NextWaypoint();
+            }
+        }
 
+        void NextWaypoint()
+        {
+            currentWayPointIndex++; // try to increase the index
+            if (currentWayPointIndex > wayPoints.Length - 1)
+            {
+                currentWayPointIndex = 0; // if index is larger than list of waypoints, reset it to zero
+            }
+
+            currentWayPoint = wayPoints[currentWayPointIndex]; // assign current waypoint from the list
         }
     }
 }

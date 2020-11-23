@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TowerDefence.Managers;
 
 namespace TowerDefence.Enemies
@@ -22,9 +23,12 @@ namespace TowerDefence.Enemies
         public float timeBetweenWaves = 5;
         private float wavesCountDown;
         private float enemyCheck = 1f;
-
+        
         public SpawnPhase state = SpawnPhase.COUNTING;
         private EnemyManager enemyManager;
+
+        public Text waveNotification;
+        public Text waveState;
 
         void Start()
         {
@@ -42,7 +46,8 @@ namespace TowerDefence.Enemies
                 }
                 else
                 {
-                    return;
+                    waveState.text = "Base is under attack!";
+                    return;     
                 }
             }
 
@@ -50,6 +55,7 @@ namespace TowerDefence.Enemies
             {
                 if (state != SpawnPhase.SPAWNING)
                 {
+                    waveState.text = "Enemies are incoming!";
                     StartCoroutine(SpawnWave(waves[nextWave]));
                 }
             }
@@ -57,6 +63,8 @@ namespace TowerDefence.Enemies
             {
                 wavesCountDown -= Time.deltaTime;
             }
+
+            waveNotification.text = "Wave " + nextWave.ToString();
         }
 
         IEnumerator SpawnWave(Wave _wave)
@@ -77,6 +85,7 @@ namespace TowerDefence.Enemies
         void WaveCompleted()
         {
             state = SpawnPhase.COUNTING;
+            waveState.text = "Time to restock and repair!";
             wavesCountDown = timeBetweenWaves;
 
             if (nextWave + 1 > waves.Length - 1)
