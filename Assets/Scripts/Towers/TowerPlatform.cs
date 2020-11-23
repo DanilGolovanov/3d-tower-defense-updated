@@ -21,7 +21,7 @@ namespace TowerDefence.Towers
             heldTower = _tower;
 
             _tower.transform.SetParent(towerHolder);
-            _tower.transform.localPosition = new Vector3(0, _tower.GetComponent<Collider>().bounds.size.y / 2, 0);
+            _tower.transform.localPosition = new Vector3(0, _tower.GetComponent<Collider>().bounds.size.y / 12, 0);
         }
 
     }

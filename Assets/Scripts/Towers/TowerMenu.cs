@@ -71,7 +71,7 @@ public class TowerMenu : MonoBehaviour
         {
             Transform towerBase = Instantiate(GameAssets.GetInstance().towerBase);
             towerBase.SetParent(towerHolder.transform);
-            towerTopHeight = towerBase.GetComponent<Collider>().bounds.size.y / 2 + towerBase.GetComponent<Collider>().bounds.size.y * i;
+            towerTopHeight = towerBase.GetComponent<Collider>().bounds.size.y / 4 + towerBase.GetComponent<Collider>().bounds.size.y * i;
             towerBase.localPosition = new Vector3(0, towerTopHeight, 0);
         }
 
