@@ -61,6 +61,9 @@ namespace TowerDefence.Enemies
 
         private Player player; //reference to player game object within the scene
         private EnemyManager enemyManager;
+        Animator anim;
+        Rigidbody rB;
+        private bool dead = false;
 
         /// <summary>
         /// Handles damage of the enemy and if below or equal to 0 calls Die()
@@ -71,17 +74,20 @@ namespace TowerDefence.Enemies
             health -= _damage;
             if (health <= 0)
             {
-                Die();
+                StartCoroutine(Die());
             }
         }
         /// <summary>
-        /// Handles the visual and technical features of dying such as giving tower xp
+        /// Handles the visual and technical features of dying
         /// </summary>
-        /// <param name="_tower">the tower that killed the enemy</param>
-        public void Die()
+        IEnumerator Die()
         {
+            dead = true;
+            rB.velocity = Vector3.zero;
+            anim.SetBool("isRunning", false);
+            anim.SetBool("isDead", true);
+            yield return new WaitForSeconds(10f);
             onDeath.Invoke(this);
-            //Visuals
         }
         void Awake()
         {
@@ -100,24 +106,30 @@ namespace TowerDefence.Enemies
         // Start is called before the first frame update
         void Start()
         {
-            //singleton - accessing the only player in game
+            anim = GetComponent<Animator>();
+            rB = GetComponent<Rigidbody>();
             player = Player.instance;
             enemyManager = EnemyManager.instance;
             onDeath.AddListener(player.AddMoney);
             onDeath.AddListener(enemyManager.KillEnemy);
+            anim.SetBool("isRunning", true);
         }
 
         // Update is called once per frame
         void Update()
         {
-            //Turning the object to the target
-            enemyTransform.rotation = Quaternion.Lerp(enemyTransform.rotation, Quaternion.LookRotation(currentWayPoint.wayPoint - enemyTransform.position), Time.deltaTime * turnSpeed); 
-                                                                                                                                                                                     
-            enemyTransform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
-            if (currentWayPoint.IsWaypointReached(enemyTransform.position))
+            if (!dead)
             {
-                NextWaypoint();
+                //Turning the object to the target
+                enemyTransform.rotation = Quaternion.Lerp(enemyTransform.rotation, Quaternion.LookRotation(currentWayPoint.wayPoint - enemyTransform.position), Time.deltaTime * turnSpeed);
+
+                enemyTransform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+                if (currentWayPoint.IsWaypointReached(enemyTransform.position))
+                {
+                    NextWaypoint();
+                }
             }
+
         }
 
         void NextWaypoint()

@@ -18154,7 +18154,7 @@ PrefabInstance:
     - target: {fileID: 1360310390934047505, guid: cd9d3f8e13bb4864ca9681227eb12e70,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1360310390934047505, guid: cd9d3f8e13bb4864ca9681227eb12e70,
         type: 3}
@@ -27236,7 +27236,7 @@ PrefabInstance:
     - target: {fileID: 1360310390934047505, guid: cd9d3f8e13bb4864ca9681227eb12e70,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1360310390934047505, guid: cd9d3f8e13bb4864ca9681227eb12e70,
         type: 3}
@@ -51372,7 +51372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0555efcb88857f54280943d2345bd6e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 3193062488354073034, guid: cb2987450b107034393e5e1b00315ae6,
+  enemyPrefab: {fileID: 4042906472930774978, guid: 34b3349bc53273248b7d4048c60b7763,
     type: 3}
   spawnPoints:
   - {fileID: 1500029530}
@@ -69264,7 +69264,7 @@ PrefabInstance:
     - target: {fileID: 1360310390934047505, guid: cd9d3f8e13bb4864ca9681227eb12e70,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1360310390934047505, guid: cd9d3f8e13bb4864ca9681227eb12e70,
         type: 3}
@@ -70502,7 +70502,7 @@ PrefabInstance:
     - target: {fileID: 1360310390934047505, guid: cd9d3f8e13bb4864ca9681227eb12e70,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1360310390934047505, guid: cd9d3f8e13bb4864ca9681227eb12e70,
         type: 3}
