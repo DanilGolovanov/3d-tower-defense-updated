@@ -62,5 +62,14 @@ namespace TowerDefence
         {
             moneyText.text = "$ " + money.ToString();
         }
+        public void TakeDamage(float damage)
+        {
+            if (GameManager.instance.currentHealth < 0)
+            {
+                //player dead
+                return; //for now
+            }
+            GameManager.instance.currentHealth -= damage;
+        }
     }
 }

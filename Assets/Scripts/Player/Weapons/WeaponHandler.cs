@@ -56,6 +56,7 @@ public class WeaponHandler : MonoBehaviour {
     //references
     Camera mainCam;
     WeaponManager weaponManager;
+    public GameObject bloodsplatter;
 
     void Awake() 
     {
@@ -201,6 +202,7 @@ public class WeaponHandler : MonoBehaviour {
             if (hit.transform.tag == Tags.ENEMY_TAG)
             {
                 hit.transform.GetComponent<Enemy>().Damage(damage);
+                Instantiate(bloodsplatter, hit.transform.position, Quaternion.identity);
             }
             else
             {
