@@ -86,10 +86,10 @@ public class TowerMenu : MonoBehaviour
         towerHolder.AddComponent<TowerType>();
         currentTower.GetComponent<TowerType>().level = level;
         currentTower.GetComponent<TowerType>().towerType = towerType;
-        currentTower.GetComponent<TowerType>().maxHealth = maxHealth;
-        currentTower.GetComponent<TowerType>().damageToGive = damageToGive;
-        currentTower.GetComponent<TowerType>().fireRange = fireRange;
-        currentTower.GetComponent<TowerType>().rechargeTime = rechargeTime;
+        currentTower.GetComponent<TowerType>().maxHealth = maxHealth * currentTower.GetComponent<TowerType>().positiveStatMultiplier;
+        currentTower.GetComponent<TowerType>().damageToGive = damageToGive * currentTower.GetComponent<TowerType>().positiveStatMultiplier;
+        currentTower.GetComponent<TowerType>().fireRange = fireRange * currentTower.GetComponent<TowerType>().positiveStatMultiplier;
+        currentTower.GetComponent<TowerType>().rechargeTime = rechargeTime * currentTower.GetComponent<TowerType>().negativeStatMultiplier;
         currentTower.GetComponent<TowerType>().canHitMultipleEnemies = canHitMultipleEnemies;
         currentTower.GetComponent<TowerType>().upgradeCost = level * currentTower.GetComponent<TowerType>().initialUpgradeCost;
     }

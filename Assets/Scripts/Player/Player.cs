@@ -14,7 +14,7 @@ namespace TowerDefence
         /// </summary>
         public static Player instance = null;
 
-        [SerializeField, Tooltip("sets the initial amount of money player has")]
+        [Tooltip("sets the initial amount of money player has")]
         public int money = 100;
         public Text moneyText;
 

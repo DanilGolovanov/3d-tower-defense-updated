@@ -46,12 +46,6 @@ namespace TowerDefence.Manager
             towers.Add(TowerTypes.SniperTower, spawnableTowers[2]);
             towers.Add(TowerTypes.MachineGunTower, spawnableTowers[3]);
         }
-
-        // Update is called once per frame
-        void Update()
-        {
-            
-        }
     }
 
 }
