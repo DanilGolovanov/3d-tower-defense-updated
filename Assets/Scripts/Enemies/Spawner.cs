@@ -19,7 +19,7 @@ namespace TowerDefence.Enemies
             public float delayBetweenEnemySpawn;
         }
         public Wave[] waves;
-        private int nextWave = 0;
+        private int nextWave = 1;
         public float timeBetweenWaves = 5;
         private float wavesCountDown;
         private float enemyCheck = 1f;

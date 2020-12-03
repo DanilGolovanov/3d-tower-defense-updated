@@ -13187,8 +13187,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.018120276, y: 0.019539168, z: 0.14274347}
-  m_Center: {x: 0.000157153, y: -0.000017353595, z: 0.06025088}
+  m_Size: {x: 0.01839282, y: 0.021229597, z: 0.10646139}
+  m_Center: {x: 0.0000208807, y: -0.00010959267, z: 0.042109925}
 --- !u!114 &358660619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13218,8 +13218,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.025224246, y: 0.023626685, z: 0.14274347}
-  m_Center: {x: 0.00015838623, y: 0.000095665455, z: 0.06025088}
+  m_Size: {x: 0.025224246, y: 0.022463461, z: 0.10418635}
+  m_Center: {x: 0.00015838623, y: 0.000084687475, z: 0.040972408}
 --- !u!1001 &359803695
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43039,7 +43039,7 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4278190476
   duration: 5
-  directionalLight: {fileID: 0}
+  directionalLight: {fileID: 363644774}
   nonWaveLight:
     serializedVersion: 2
     rgba: 4294967295
