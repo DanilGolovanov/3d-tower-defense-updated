@@ -1916,12 +1916,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: df4e8cdf3040b0a4e824b0f41715202f, type: 3}
   - {fileID: 8300000, guid: 0b86f2504468c7349afa9a4adda7296c, type: 3}
   hitBaseAudio:
-  - {fileID: 8300000, guid: 244fcc3be3e49ec4985026855ad40988, type: 3}
-  - {fileID: 8300000, guid: 9ec8938b649d740489c4014491d994be, type: 3}
-  - {fileID: 8300000, guid: 589dc75ae6c48dc49a570dd50aec721f, type: 3}
-  - {fileID: 8300000, guid: 22a523bb5dac10b4394db4644ed769f2, type: 3}
-  - {fileID: 8300000, guid: df4e8cdf3040b0a4e824b0f41715202f, type: 3}
-  - {fileID: 8300000, guid: 0b86f2504468c7349afa9a4adda7296c, type: 3}
+  - {fileID: 8300000, guid: 0643d859974a29c4aa74f3952d5a5308, type: 3}
+  - {fileID: 8300000, guid: 6e7bde474c12b3549a33975340d04338, type: 3}
+  - {fileID: 8300000, guid: dcbb64b21ed4a6c4996835ceefb37b39, type: 3}
+  - {fileID: 8300000, guid: 4e3e6a392fb3f5b4a871bdb4173f8ab4, type: 3}
+  - {fileID: 8300000, guid: e1c1070bf94b0a340a7f675ccd128678, type: 3}
 --- !u!1 &7703183048779662519
 GameObject:
   m_ObjectHideFlags: 0
