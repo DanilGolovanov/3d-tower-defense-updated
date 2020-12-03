@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TowerDefence.Towers;
+using UnityEngine.UI;
 
 namespace TowerDefence.Manager
 {
@@ -11,6 +12,9 @@ namespace TowerDefence.Manager
 
         [SerializeField]
         private List<Tower> spawnableTowers = new List<Tower>();
+
+        [SerializeField]
+        private List<Text> towerPriceTexts = new List<Text>();
 
         private List<Tower> aliveTowers = new List<Tower>();
 
@@ -45,6 +49,11 @@ namespace TowerDefence.Manager
             towers.Add(TowerTypes.MagicTower, spawnableTowers[1]);
             towers.Add(TowerTypes.SniperTower, spawnableTowers[2]);
             towers.Add(TowerTypes.MachineGunTower, spawnableTowers[3]);
+
+            towerPriceTexts[0].text = "$" + towers[TowerTypes.DefaultTower].Cost;
+            towerPriceTexts[1].text = "$" + towers[TowerTypes.MagicTower].Cost;
+            towerPriceTexts[2].text = "$" + towers[TowerTypes.SniperTower].Cost;
+            towerPriceTexts[3].text = "$" + towers[TowerTypes.MachineGunTower].Cost;
         }
     }
 
