@@ -923,15 +923,15 @@ MonoBehaviour:
       m_Calls: []
   enemyState: 0
   patrolSpeed: 4
-  attackSpeed: 6
-  chaseDistance: 7
+  attackSpeed: 8
+  chaseDistance: 5
   attackDistance: 3
   baseAttackDistance: 10
   chaseAfterAttackDistance: 2
   waitBeforeAttack: 2
-  health: 1
+  health: 80
   xp: 1
-  money: 1
+  money: 25
   enemyAttackAudio:
   - {fileID: 8300000, guid: 06dac632401ca904a90b59566d00e9ff, type: 3}
   - {fileID: 8300000, guid: 3691d4ed7911e774abdc80929c0c9d05, type: 3}
@@ -946,6 +946,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ca444fc0d10cd5547944d47858f82b2a, type: 3}
   mainBase: {fileID: 0}
   attack_Point: {fileID: 7661103757202395799}
+  bloodSplat: {fileID: 1996451317242445463, guid: 92623916033870241a45b085a2c03f40,
+    type: 3}
 --- !u!82 &7900964414715827522
 AudioSource:
   m_ObjectHideFlags: 0

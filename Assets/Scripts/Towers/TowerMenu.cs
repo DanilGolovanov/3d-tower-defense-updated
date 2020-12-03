@@ -31,6 +31,9 @@ public class TowerMenu : MonoBehaviour
         towerExists = true;
         towerBuyMenu.gameObject.SetActive(false);
         towerUpgradeMenu.gameObject.SetActive(true);
+        currentTower = currentTowerPlatform.GetComponentInChildren<TowerCheck>();
+        currentTower.GetComponent<TowerType>().upgradeCost = currentTower.GetComponent<TowerType>().initialUpgradeCost;
+        upgradePriceText.text = "$" + currentTower.GetComponentInChildren<TowerType>().upgradeCost;
     }
 
     public void RemoveTower()
@@ -96,6 +99,7 @@ public class TowerMenu : MonoBehaviour
         currentTower.GetComponent<TowerType>().rechargeTime = rechargeTime * currentTower.GetComponent<TowerType>().negativeStatMultiplier;
         currentTower.GetComponent<TowerType>().canHitMultipleEnemies = canHitMultipleEnemies;
         currentTower.GetComponent<TowerType>().upgradeCost = level * currentTower.GetComponent<TowerType>().initialUpgradeCost;
+        upgradePriceText.text = "$" + currentTower.GetComponentInChildren<TowerType>().upgradeCost;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -103,8 +107,11 @@ public class TowerMenu : MonoBehaviour
         currentTowerPlatform = other.GetComponentInParent<TowerPlatform>();
         towerExists = other.GetComponentInChildren<TowerCheck>();
         currentTower = other.GetComponentInChildren<TowerCheck>();
-
-        upgradePriceText.text = "$" + other.GetComponentInChildren<TowerType>().upgradeCost;
+        if (other.GetComponentInChildren<TowerType>())
+        {
+            upgradePriceText.text = "$" + other.GetComponentInChildren<TowerType>().upgradeCost;
+        }
+            
     }
 
     private void OnTriggerStay(Collider other)

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3207696231043215490}
   - component: {fileID: 2466325363773788578}
   m_Layer: 0
-  m_Name: MachineGunTowerTop
+  m_Name: 1stLevelMachineGunTowerTop
   m_TagString: TowerTop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: 
   description: 
-  cost: 1
+  cost: 100
   damage: 1
   minimumRange: 1
   maximumRange: 5
@@ -74,15 +74,17 @@ MonoBehaviour:
   level: 1
   towerType: 3
   towerDescription: 
-  damageToGive: 0
+  damageToGive: 8
   maxHealth: 100
-  fireRange: 0
-  rechargeTime: 0
+  fireRange: 30
+  rechargeTime: 0.5
   canHitMultipleEnemies: 0
   positiveStatMultiplier: 1.2
   negativeStatMultiplier: 0.85
   upgradeCost: 0
-  initialUpgradeCost: 0
+  initialUpgradeCost: 50
+  bloodSplat: {fileID: 1996451317242445463, guid: 92623916033870241a45b085a2c03f40,
+    type: 3}
 --- !u!65 &3207696231043215490
 BoxCollider:
   m_ObjectHideFlags: 0

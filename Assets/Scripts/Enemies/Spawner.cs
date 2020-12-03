@@ -40,10 +40,8 @@ namespace TowerDefence.Enemies
 
         //audio
         public AudioClip[] waveAmbiance;
-        public AudioClip inbetweenWaveAmbiance;
         private AudioSource audioSource;
         private AudioListener audioListener;
-        private bool inbetweenAmbPlay = false;
 
 
         void Start()

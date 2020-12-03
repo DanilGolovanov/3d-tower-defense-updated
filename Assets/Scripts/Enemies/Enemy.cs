@@ -66,7 +66,9 @@ namespace TowerDefence.Enemies
         private NavMeshAgent navAgent;
         public MainBase mainBase;
         public GameObject attack_Point;
-        //private EnemyAudio enemy_Audio;
+
+        public GameObject bloodSplat;
+
 
         void Awake()
         {
@@ -281,6 +283,10 @@ namespace TowerDefence.Enemies
         {
             audioSource.clip = enemyDeathAudio[Random.Range(0, enemyDeathAudio.Length)];
             audioSource.Play();
+        }
+        void PlayEnemyBloodSplat()
+        {
+            Instantiate(bloodSplat, transform.position, Quaternion.identity);
         }
     }
 }

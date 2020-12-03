@@ -7,9 +7,10 @@ using TowerDefence.Enemies;
 public class AttackScript : MonoBehaviour 
 {
 
-    public float damage = 2f;
+    public float damage = 20f;
     public float radius = 1f;
     public LayerMask layerMask;
+    public GameObject bloodSplat;
 
     void Update () {
 
@@ -18,8 +19,9 @@ public class AttackScript : MonoBehaviour
         if (hits.Length > 0) 
         {
             hits[0].gameObject.GetComponent<Enemy>().Damage(damage);
+            Instantiate(bloodSplat, hits[0].transform.position, Quaternion.identity);
 
-            //gameObject.SetActive(false);
+            gameObject.SetActive(false);
 
         }
 

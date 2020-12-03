@@ -106,7 +106,7 @@ namespace TowerDefence.Towers
         private string towerName = "";
         [SerializeField, TextArea]
         private string description = "";
-        [SerializeField, Range(1, 10), Tooltip("Adjust cost between 1 and 10")]
+        [SerializeField, Tooltip("cost of tower")]
         private int cost = 1;
 
         [Header("Attack Stats")]

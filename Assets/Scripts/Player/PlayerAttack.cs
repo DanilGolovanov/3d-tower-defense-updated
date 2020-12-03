@@ -7,7 +7,8 @@ public class PlayerAttack : MonoBehaviour
 {
     
     public static bool reloadCheck;
-    public float damage = 20f;
+    public float pistolDamage = 40f;
+    public float buckshotDamage = 80f;
     private bool attackCooldown = false;
     public GameObject bloodsplatter;
     public GameObject towerMenu;
@@ -66,18 +67,22 @@ public class PlayerAttack : MonoBehaviour
     public void BulletFired()
     {
         RaycastHit hit;
-        Debug.Log("Bullet Fired");
 
         if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out hit))
         {
-            if (hit.transform.tag == Tags.ENEMY_TAG)
+            if (hit.transform.tag == Tags.ENEMY_TAG && weaponManager.GetCurrentSelectedWeapon().bulletType == WeaponBulletType.BUCKSHOT)
             {
-                hit.transform.GetComponent<Enemy>().Damage(damage);
+                hit.transform.GetComponent<Enemy>().Damage(buckshotDamage);
+                Instantiate(bloodsplatter, hit.transform.position, Quaternion.identity);
+            }
+            else if (hit.transform.tag == Tags.ENEMY_TAG && weaponManager.GetCurrentSelectedWeapon().bulletType == WeaponBulletType.BULLET)
+            {
+                hit.transform.GetComponent<Enemy>().Damage(pistolDamage);
                 Instantiate(bloodsplatter, hit.transform.position, Quaternion.identity);
             }
             else
             {
-                Debug.Log("Missed");
+                return;
             }
         }
     }

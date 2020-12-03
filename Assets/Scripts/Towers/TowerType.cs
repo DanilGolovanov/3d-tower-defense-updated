@@ -49,8 +49,16 @@ namespace TowerDefence.Towers
         public int upgradeCost;
         public int initialUpgradeCost;
 
+        public GameObject bloodSplat;
+       
+        private AudioListener audioListener;
+        private AudioSource audioSource;
+
         private void Start()
         {
+            audioListener = GameObject.FindGameObjectWithTag("FPSCamera").GetComponent<AudioListener>();
+            audioSource = GameObject.FindGameObjectWithTag("DefaultTower").GetComponent<AudioSource>();
+
             enemyManager = FindObjectOfType<EnemyManager>();
             spawner = FindObjectOfType<Spawner>();
             // get all tower bases and tower top 
@@ -87,6 +95,7 @@ namespace TowerDefence.Towers
                     foreach (Enemy enemy in closeEnemies)
                     {
                         enemy.Damage(damageToGive);
+                        Instantiate(bloodSplat, enemy.transform.position, Quaternion.identity);
                     }
                 }
                 // if tower can't attack multiple enemies, just make damage to one of them
@@ -95,6 +104,12 @@ namespace TowerDefence.Towers
                     if (closeEnemies.Length > 0)
                     {
                         closeEnemies[0].Damage(damageToGive);
+                        Instantiate(bloodSplat, closeEnemies[0].transform.position, Quaternion.identity);
+
+                        if (towerType == 0)
+                        {
+                            audioSource.Play();
+                        }
                     }
                 }
                 foreach (var towerComponent in towerComponents)

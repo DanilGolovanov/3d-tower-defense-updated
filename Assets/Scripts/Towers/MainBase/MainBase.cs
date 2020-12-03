@@ -95,9 +95,9 @@ public class MainBase : MonoBehaviour
     }
     public void ReloadPistol()
     {
-        if (Player.instance.money > 49)
+        if (Player.instance.money > 24)
         {
-            Player.instance.RemoveMoney(50);
+            Player.instance.RemoveMoney(25);
             WeaponHandler.maxAmmo += 12;
             notifciationText.text = "Pistol Ammo purchased";
         }
@@ -108,9 +108,9 @@ public class MainBase : MonoBehaviour
     }
     public void ReloadShotgun()
     {
-        if (Player.instance.money > 49)
+        if (Player.instance.money > 39)
         {
-            Player.instance.RemoveMoney(50);
+            Player.instance.RemoveMoney(40);
             WeaponHandler.maxBuckshot += 6;
             notifciationText.text = "Shotgun Ammo purchased";
         }
