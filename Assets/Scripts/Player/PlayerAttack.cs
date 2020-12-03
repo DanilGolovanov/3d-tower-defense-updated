@@ -11,6 +11,7 @@ public class PlayerAttack : MonoBehaviour
     private bool attackCooldown = false;
     public GameObject bloodsplatter;
     public GameObject towerMenu;
+    public GameObject upgradeMenu;
     public GameObject baseMenu;
     private Camera mainCam;
     private WeaponManager weaponManager;
@@ -82,7 +83,7 @@ public class PlayerAttack : MonoBehaviour
     }
     public bool MenuCheck()
     {
-        if (towerMenu.activeInHierarchy || baseMenu.activeInHierarchy)
+        if (towerMenu.activeInHierarchy || baseMenu.activeInHierarchy || upgradeMenu.activeInHierarchy)
         {
             return true;
         }

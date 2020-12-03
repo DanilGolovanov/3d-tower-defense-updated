@@ -11,9 +11,15 @@ public class CameraShake : MonoBehaviour
     private float timeAtLastFrame;
     private float fakeDelta;
 
+    public AudioClip[] playerHitAudio;
+    private AudioSource audioSource;
+    private AudioListener audioListener;
+
     void Awake()
     {
         instance = this;
+        audioListener = GameObject.FindGameObjectWithTag("FPSCamera").GetComponent<AudioListener>();
+        audioSource = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioSource>();
     }
 
     void Update()
@@ -43,7 +49,12 @@ public class CameraShake : MonoBehaviour
 
             yield return null;
         }
-
+        PlayPlayerHitAudio();
         transform.localPosition = originalPos;
+    }
+    void PlayPlayerHitAudio()
+    {
+        audioSource.clip = playerHitAudio[Random.Range(0, playerHitAudio.Length)];
+        audioSource.Play();
     }
 }

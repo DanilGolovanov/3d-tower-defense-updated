@@ -73611,6 +73611,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c3ecefa0dbb2140a79f4d81b1ccafc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHitAudio:
+  - {fileID: 8300000, guid: 59a7cf14668c1b34485645d1828913dd, type: 3}
+  - {fileID: 8300000, guid: cdc7b68466cdb0341a9de62c928f4d55, type: 3}
+  - {fileID: 8300000, guid: e7c38aeceac474d4681a86f947bc09ac, type: 3}
+  - {fileID: 8300000, guid: 66be3bc6d346cc245a89ef069a28e9d6, type: 3}
+  - {fileID: 8300000, guid: fea15850ef6912d458875dfd6941c1f9, type: 3}
 --- !u!1001 &2136548666
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74544,6 +74550,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1996451317242445463, guid: 92623916033870241a45b085a2c03f40,
         type: 3}
+    - target: {fileID: 6966309146065872509, guid: d55f3d9b18a56e442bd7115591155edd,
+        type: 3}
+      propertyPath: towerMenu
+      value: 
+      objectReference: {fileID: 836476618}
+    - target: {fileID: 6966309146065872509, guid: d55f3d9b18a56e442bd7115591155edd,
+        type: 3}
+      propertyPath: baseMenu
+      value: 
+      objectReference: {fileID: 319908278}
+    - target: {fileID: 6966309146065872509, guid: d55f3d9b18a56e442bd7115591155edd,
+        type: 3}
+      propertyPath: upgradeMenu
+      value: 
+      objectReference: {fileID: 836476617}
     - target: {fileID: 6966309146065872510, guid: d55f3d9b18a56e442bd7115591155edd,
         type: 3}
       propertyPath: moneyText
@@ -74584,6 +74605,12 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6966309146166369168, guid: d55f3d9b18a56e442bd7115591155edd,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 2290716450029927997, guid: e0995ec08a0375d45a4f27888a1ad5d5,
+        type: 2}
     m_RemovedComponents:
     - {fileID: 6966309145281881555, guid: d55f3d9b18a56e442bd7115591155edd, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d55f3d9b18a56e442bd7115591155edd, type: 3}
