@@ -11,35 +11,13 @@ namespace TowerDefence.Enemies
     public class Enemy : MonoBehaviour
     {
         [System.Serializable]
-        public class WaypointInfo
-        {
-            public Vector3 wayPoint;
-            public bool IsWaypointReached(Vector3 movingObject, float deadZone = 0.3f)
-            {
-                if (Vector3.Distance(movingObject, wayPoint) < deadZone)
-                {
-                    return true;
-                }
-                return false;
-            }
-        }
-        [System.Serializable]
         public class DeathEvent : UnityEvent<Enemy>{}
-
         //properties
         public float XP { get { return xp; } }
         public int Money { get { return money; } }
-
         //event for enemy death
         [SerializeField]
         private DeathEvent onDeath = new DeathEvent();
-
-        [Header("Waypoint System")]
-        public float turnSpeed = 5;
-        public WaypointInfo[] wayPoints;
-        private WaypointInfo currentWayPoint;
-        private int currentWayPointIndex;
-
         //FSM states for AI
         public enum EnemyState
         {
@@ -72,6 +50,12 @@ namespace TowerDefence.Enemies
         [SerializeField, Tooltip("The amount of money tower gets killing an enemy")]
         private int money = 1;
 
+        //enemy audio
+        public AudioClip[] enemyAttackAudio;
+        public AudioClip[] enemyDeathAudio;
+        private AudioSource audioSource;
+        private AudioListener audioListener;
+
         //references
         private Player player; //reference to player game object within the scene
         private EnemyManager enemyManager;
@@ -92,16 +76,8 @@ namespace TowerDefence.Enemies
             enemyTransform = transform; //assign the reference of Transform
             target = GameObject.FindGameObjectWithTag("Player").transform;
             targetBase = GameObject.FindGameObjectWithTag("Base").transform;
-
-            if (wayPoints.Length > 0)
-            {
-                currentWayPoint = wayPoints[0];//set initial waypoint
-                currentWayPointIndex = 0;
-            }
-            else
-            {
-                Debug.LogError("No waypoint assigned");
-            }
+            audioListener = GameObject.FindGameObjectWithTag("FPSCamera").GetComponent<AudioListener>();
+            audioSource = GetComponent<AudioSource>();
         }
 
         // Start is called before the first frame update
@@ -176,14 +152,10 @@ namespace TowerDefence.Enemies
             if (Vector3.Distance(transform.position, target.position) <= chaseDistance)
             {
                 enemyState = EnemyState.CHASE;
-                // play spotted audio
-                //enemy_Audio.Play_ScreamSound();
             }
             if (Vector3.Distance(transform.position, targetBase.position) <= 4.5f)
             {
                 enemyState = EnemyState.ATTACKBASE;
-                // play spotted audio
-                //enemy_Audio.Play_ScreamSound();
             }
         }
 
@@ -226,8 +198,7 @@ namespace TowerDefence.Enemies
             {
                 enemyAnim.SetBool("isAttacking", true);
                 attackTimer = 0f;
-                // play attack sound
-                //enemy_Audio.Play_AttackSound();
+                PlayEnemyAttackAudio();
 
             }
             if (Vector3.Distance(transform.position, target.position) >
@@ -248,8 +219,7 @@ namespace TowerDefence.Enemies
             {
                 enemyAnim.SetBool("isAttacking", true);
                 attackTimer = 0f;
-                // play attack sound
-                //enemy_Audio.Play_AttackSound();
+                PlayEnemyAttackAudio();
 
             }
         }
@@ -270,30 +240,6 @@ namespace TowerDefence.Enemies
             enemyAnim.SetBool("isDead", true);
             yield return new WaitForSeconds(5f);
             onDeath.Invoke(this);
-        }
-        void FollowWaypoint()
-        {
-            if (!dead)
-            {
-                //Turning the object to the target
-                enemyTransform.rotation = Quaternion.Lerp(enemyTransform.rotation, Quaternion.LookRotation(currentWayPoint.wayPoint - enemyTransform.position), Time.deltaTime * turnSpeed);
-
-                enemyTransform.Translate(Vector3.forward * patrolSpeed * Time.deltaTime);
-                if (currentWayPoint.IsWaypointReached(enemyTransform.position))
-                {
-                    NextWaypoint();
-                }
-            }
-        }
-        void NextWaypoint()
-        {
-            currentWayPointIndex++; // try to increase the index
-            if (currentWayPointIndex > wayPoints.Length - 1)
-            {
-                currentWayPointIndex = 0; // if index is larger than list of waypoints, reset it to zero
-            }
-
-            currentWayPoint = wayPoints[currentWayPointIndex]; // assign current waypoint from the list
         }
         /// <summary>
         /// Handles damage of the enemy and if below or equal to switches enum state to dying
@@ -325,6 +271,16 @@ namespace TowerDefence.Enemies
             {
                 c.enabled = false;
             }
+        }
+        void PlayEnemyAttackAudio()
+        {
+            audioSource.clip = enemyAttackAudio[Random.Range(0, enemyAttackAudio.Length)];
+            audioSource.Play();
+        }
+        void PlayEnemyDeathAudio()
+        {
+            audioSource.clip = enemyDeathAudio[Random.Range(0, enemyDeathAudio.Length)];
+            audioSource.Play();
         }
     }
 }

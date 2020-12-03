@@ -19,7 +19,7 @@ public class EnemyAttackScript : MonoBehaviour
 
     private void Start()
     {
-        audioListener = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioListener>();
+        audioListener = GameObject.FindGameObjectWithTag("FPSCamera").GetComponent<AudioListener>();
         audioSource = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioSource>();
     }
 
