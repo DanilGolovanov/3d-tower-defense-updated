@@ -13,13 +13,14 @@ namespace TowerDefence.Manager
         private List<Tower> spawnableTowers = new List<Tower>();
 
         private List<Tower> aliveTowers = new List<Tower>();
-        private Tower towerToPurchase;
 
-        public void PurchaseTower(TowerPlatform _platform)
+        private Dictionary<TowerTypes, Tower> towers = new Dictionary<TowerTypes, Tower>();
+
+        public void PurchaseTower(TowerPlatform _platform, TowerTypes _towerType)
         {
-            Player.instance.PurchaseTower(towerToPurchase);
+            Player.instance.PurchaseTower(towers[_towerType]);
 
-            Tower newTower = Instantiate(towerToPurchase);
+            Tower newTower = Instantiate(towers[_towerType]);
             _platform.AddTower(newTower);
         }
 
@@ -40,7 +41,10 @@ namespace TowerDefence.Manager
         // Start is called before the first frame update
         void Start()
         {
-            towerToPurchase = spawnableTowers[0];
+            towers.Add(TowerTypes.DefaultTower, spawnableTowers[0]);
+            towers.Add(TowerTypes.MagicTower, spawnableTowers[1]);
+            towers.Add(TowerTypes.SniperTower, spawnableTowers[2]);
+            towers.Add(TowerTypes.MachineGunTower, spawnableTowers[3]);
         }
 
         // Update is called once per frame

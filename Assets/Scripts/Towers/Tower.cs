@@ -215,7 +215,7 @@ namespace TowerDefence.Towers
             try
             {
                 //get enemies within range
-                Enemy[] closeEnemies = EnemyManager.instance.GetClosestEnemies(transform, MaximumRange, minimumRange);
+                Enemy[] closeEnemies = EnemyManager.instance.GetClosestEnemies(transform.position, MaximumRange, minimumRange);
                 //GetClosestEnemy();
                 target = GetClosestEnemy(closeEnemies);
             }
