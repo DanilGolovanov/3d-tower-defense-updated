@@ -28458,10 +28458,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1618225224}
     m_Modifications:
+    - target: {fileID: 2838569387310248141, guid: e1bd002c5eb40c041bfd3b70f8f66e60,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Magic
+
+        Tower'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2838569387591728262, guid: e1bd002c5eb40c041bfd3b70f8f66e60,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Sniper
+
+        Tower'
+      objectReference: {fileID: 0}
     - target: {fileID: 2838569387640226807, guid: e1bd002c5eb40c041bfd3b70f8f66e60,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2838569387705195811, guid: e1bd002c5eb40c041bfd3b70f8f66e60,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Default
+
+        Tower'
       objectReference: {fileID: 0}
     - target: {fileID: 2838569387731303094, guid: e1bd002c5eb40c041bfd3b70f8f66e60,
         type: 3}
@@ -28563,6 +28584,16 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: SniperTower
       objectReference: {fileID: 0}
+    - target: {fileID: 2838569388023915583, guid: e1bd002c5eb40c041bfd3b70f8f66e60,
+        type: 3}
+      propertyPath: m_Name
+      value: SniperTowerBtn
+      objectReference: {fileID: 0}
+    - target: {fileID: 2838569388056250836, guid: e1bd002c5eb40c041bfd3b70f8f66e60,
+        type: 3}
+      propertyPath: m_Name
+      value: MagicTowerBtn
+      objectReference: {fileID: 0}
     - target: {fileID: 2838569388056250838, guid: e1bd002c5eb40c041bfd3b70f8f66e60,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -28597,6 +28628,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: MagicTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 2838569388128622031, guid: e1bd002c5eb40c041bfd3b70f8f66e60,
+        type: 3}
+      propertyPath: m_Name
+      value: MachineGunTowerBtn
       objectReference: {fileID: 0}
     - target: {fileID: 2838569388128622065, guid: e1bd002c5eb40c041bfd3b70f8f66e60,
         type: 3}
@@ -28743,6 +28779,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2838569388265504201, guid: e1bd002c5eb40c041bfd3b70f8f66e60,
+        type: 3}
+      propertyPath: m_Name
+      value: DefaultTowerBtn
+      objectReference: {fileID: 0}
     - target: {fileID: 2838569388265504203, guid: e1bd002c5eb40c041bfd3b70f8f66e60,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -28772,6 +28813,15 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: DefaultTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 2838569388534382295, guid: e1bd002c5eb40c041bfd3b70f8f66e60,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Machine
+
+        Gun
+
+        Tower'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1bd002c5eb40c041bfd3b70f8f66e60, type: 3}
@@ -42733,8 +42783,8 @@ MonoBehaviour:
   inWave:
     serializedVersion: 2
     rgba: 4278190476
-  duration: 1
-  directionalLight: {fileID: 363644774}
+  duration: 5
+  directionalLight: {fileID: 0}
   nonWaveLight:
     serializedVersion: 2
     rgba: 4294967295
@@ -44819,10 +44869,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnableTowers:
-  - {fileID: -6353666469023528701, guid: 969b254d4205f32489447b8011203aa5, type: 3}
-  - {fileID: -6353666469023528701, guid: 5096df3a5c30e2b41a795f11fce7275f, type: 3}
-  - {fileID: -6353666469023528701, guid: 1dd54b8f4ee7ce04c8954b15a9916686, type: 3}
-  - {fileID: -6353666469023528701, guid: 4fab91381eef3d946b649b8439447727, type: 3}
+  - {fileID: -6353666469023528701, guid: 37145437bcb405349832ba13ff26a229, type: 3}
+  - {fileID: -6353666469023528701, guid: af685f7e135813c4ba6cf6f0fc08c421, type: 3}
+  - {fileID: -6353666469023528701, guid: 98b6f83018692d444a094ff28e21597b, type: 3}
+  - {fileID: -6353666469023528701, guid: 624527b64cd61c349b95b7acd20358c5, type: 3}
 --- !u!4 &1284074209
 Transform:
   m_ObjectHideFlags: 0
@@ -67228,36 +67278,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28b7e53c2726147479b9fded4ad0dc5e, type: 3}
---- !u!1 &1944035162
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1944035163}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1944035163
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1944035162}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 24.03, y: 0, z: -1.89}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 18
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1945932232
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7224892054995313592}
   - component: {fileID: -6353666469023528701}
   - component: {fileID: 3207696231043215490}
-  - component: {fileID: 2466325363773788578}
+  - component: {fileID: 4426541015608834672}
   m_Layer: 0
-  m_Name: TowerTop 3
+  m_Name: SniperTowerTop
   m_TagString: TowerTop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,15 +72,17 @@ MonoBehaviour:
   baseRequiredXp: 5
   experienceScaler: 1
   level: 1
-  towerType: 3
+  towerType: 2
   towerDescription: 
   damageToGive: 0
-  maxHealth: 0
+  maxHealth: 100
   fireRange: 0
   rechargeTime: 0
   canHitMultipleEnemies: 0
   positiveStatMultiplier: 1.2
   negativeStatMultiplier: 0.85
+  upgradeCost: 0
+  initialUpgradeCost: 0
 --- !u!65 &3207696231043215490
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -94,7 +96,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 20, y: 10, z: 20}
   m_Center: {x: 0, y: -2.5, z: 0}
---- !u!114 &2466325363773788578
+--- !u!114 &4426541015608834672
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -132,7 +134,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8469800316315799448}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0, y: -2.34, z: 0}
+  m_LocalPosition: {x: 0, y: -2.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3026766122122475764}
@@ -328,7 +330,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.8018868, g: 0.15508187, b: 0.15508187, a: 1}
+      maxColor: {r: 0.10980392, g: 0.5647059, b: 0.11372549, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4980,6 +4982,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1504981713932161579, guid: 5c42524c5f1231847afcb32330bcb7e3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 69bdf5c62260ff44990033b21ab1aa3e, type: 2}
     - target: {fileID: -927199367670048503, guid: 5c42524c5f1231847afcb32330bcb7e3,
         type: 3}
       propertyPath: m_Name
@@ -5060,6 +5067,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1070.0797
       objectReference: {fileID: 0}
+    - target: {fileID: -1504981713932161579, guid: 39f669e63a108b94791c69316a94cfd2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 454de559f006a5547b144369f2579180, type: 2}
     - target: {fileID: -927199367670048503, guid: 39f669e63a108b94791c69316a94cfd2,
         type: 3}
       propertyPath: m_Name
