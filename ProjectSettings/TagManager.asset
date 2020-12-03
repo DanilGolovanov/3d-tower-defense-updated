@@ -11,6 +11,8 @@ TagManager:
   - Melee
   - TowerTop
   - TowerBase
+  - Base
+  - Audio
   layers:
   - Default
   - TransparentFX

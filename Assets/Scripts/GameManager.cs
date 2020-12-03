@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     public static float currentStamina = 100;
     public static float maxStamina = 100;
 
+    public float currentbaseHitPoints = 100;
+    public float maxBaseHitPoints = 100;
+
     private void Awake()
     {
         if (instance == null)

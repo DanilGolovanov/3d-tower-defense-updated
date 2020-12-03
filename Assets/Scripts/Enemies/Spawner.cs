@@ -30,8 +30,18 @@ namespace TowerDefence.Enemies
         public Text waveNotification;
         public Text waveState;
 
+        //sky colours
+        public Color32 nonWave = new Color32(120, 120, 120, 255);
+        public Color32 inWave = new Color32(140, 1, 0, 255);
+        public float duration = 5;
+        public Light directionalLight;
+        public Color32 nonWaveLight = new Color32(255, 255, 255, 255);
+        public Color32 inWaveLight = new Color32(255, 148, 148, 255);
+
+
         void Start()
         {
+            directionalLight = directionalLight.GetComponent<Light>();
             wavesCountDown = timeBetweenWaves;
             enemyManager = EnemyManager.instance;
         }
@@ -65,6 +75,7 @@ namespace TowerDefence.Enemies
             }
 
             waveNotification.text = "Wave " + nextWave.ToString();
+            SkyChange();
         }
 
         IEnumerator SpawnWave(Wave _wave)
@@ -78,14 +89,15 @@ namespace TowerDefence.Enemies
             }
 
             state = SpawnPhase.WAITING;
-
             yield break;
         }
 
         void WaveCompleted()
         {
             state = SpawnPhase.COUNTING;
+
             waveState.text = "Time to restock and repair!";
+
             wavesCountDown = timeBetweenWaves;
 
             if (nextWave + 1 > waves.Length - 1)
@@ -113,6 +125,24 @@ namespace TowerDefence.Enemies
                 }
             }
             return true;
+        }
+
+        private void SkyChange()
+        {
+            if (state == SpawnPhase.COUNTING)
+            {
+
+                RenderSettings.skybox.SetColor("_Tint", nonWave);
+                directionalLight.color = nonWaveLight;
+                RenderSettings.fog = false;
+            }
+
+            if (state == SpawnPhase.SPAWNING)
+            {
+                RenderSettings.skybox.SetColor("_Tint", inWave);
+                directionalLight.color = inWaveLight;
+                RenderSettings.fog = true;
+            }
         }
     }
 }

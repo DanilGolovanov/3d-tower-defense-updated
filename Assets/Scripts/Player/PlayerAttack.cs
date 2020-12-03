@@ -1,18 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TowerDefence.Enemies;
 
 public class PlayerAttack : MonoBehaviour
 {
-    private WeaponManager weaponManager;
+    
     public static bool reloadCheck;
-
+    public float damage = 20f;
     private bool attackCooldown = false;
+    public GameObject bloodsplatter;
+    private Camera mainCam;
+    private WeaponManager weaponManager;
 
 
     void Awake()
     {
         weaponManager = GetComponent<WeaponManager>();
+        mainCam = Camera.main;
     }
 
     // Update is called once per frame
@@ -33,19 +38,19 @@ public class PlayerAttack : MonoBehaviour
                 attackCooldown = true;
             }
             // handle shoot
-            if (weaponManager.GetCurrentSelectedWeapon().bulletType == WeaponBulletType.BULLET)
+            if (weaponManager.GetCurrentSelectedWeapon().bulletType == WeaponBulletType.BULLET && !WeaponHandler.outOfAmmo)
             {
                 weaponManager.GetCurrentSelectedWeapon().ShootAnimation();
                 weaponManager.GetCurrentSelectedWeapon().RemoveAmmo();
-                weaponManager.GetCurrentSelectedWeapon().BulletFired();
+                BulletFired();
                 Invoke("ResetAttackCooldown", 0.7f);
                 attackCooldown = true;
             }
-            if (weaponManager.GetCurrentSelectedWeapon().bulletType == WeaponBulletType.BUCKSHOT)
+            if (weaponManager.GetCurrentSelectedWeapon().bulletType == WeaponBulletType.BUCKSHOT && !WeaponHandler.outOfBuckshot)
             {
                 weaponManager.GetCurrentSelectedWeapon().ShootAnimation();
                 weaponManager.GetCurrentSelectedWeapon().RemoveBuckshot();
-                weaponManager.GetCurrentSelectedWeapon().BulletFired();
+                BulletFired();
                 Invoke("ResetAttackCooldown", 0.7f);
                 attackCooldown = true;
             }
@@ -54,6 +59,24 @@ public class PlayerAttack : MonoBehaviour
     void ResetAttackCooldown()
     {
         attackCooldown = false;
+    }
+    public void BulletFired()
+    {
+        RaycastHit hit;
+        Debug.Log("Bullet Fired");
+
+        if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out hit))
+        {
+            if (hit.transform.tag == Tags.ENEMY_TAG)
+            {
+                hit.transform.GetComponent<Enemy>().Damage(damage);
+                Instantiate(bloodsplatter, hit.transform.position, Quaternion.identity);
+            }
+            else
+            {
+                Debug.Log("Missed");
+            }
+        }
     }
 }
 

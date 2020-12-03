@@ -12,19 +12,61 @@ public class EnemyAttackScript : MonoBehaviour
     public float radius = 1f;
     public LayerMask layerMask;
 
-    void Update () {
+    public AudioClip[] hitPlayerAudio;
+    public AudioClip[] hitBaseAudio;
+    private AudioSource audioSource;
+    private AudioListener audioListener;
 
+    private void Start()
+    {
+        audioListener = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioListener>();
+        audioSource = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioSource>();
+    }
+
+    void Update () 
+    {
         Collider[] hits = Physics.OverlapSphere(transform.position, radius, layerMask);
 
         if (hits.Length > 0) 
         {
-            hits[0].gameObject.GetComponent<Player>().TakeDamage(damage);
-
+            if (hits[0].gameObject.CompareTag("Player"))
+            {
+                hits[0].gameObject.GetComponent<Player>().TakeDamage(damage);
+                CameraShake.Shake(0.25f, 4f);
+                if (!audioSource.isPlaying)
+                {
+                    PlayRandomPlayerHit();
+                }
+            }
+            else if (hits[0].gameObject.CompareTag("Base"))
+            {
+                hits[0].gameObject.GetComponent<MainBase>().TakeDamage(damage);
+                //base hit effect here
+                if (!audioSource.isPlaying)
+                {
+                    PlayRandomBaseHit();
+                }
+            }
+            else
+            {
+                //do tower damage
+            }
+            //reset attack point
             gameObject.SetActive(false);
 
         }
 
 	}
+    void PlayRandomPlayerHit()
+    {
+        audioSource.clip = hitPlayerAudio[Random.Range(0, hitPlayerAudio.Length)];
+        audioSource.Play();
+    }
+    void PlayRandomBaseHit()
+    {
+        audioSource.clip = hitBaseAudio[Random.Range(0, hitBaseAudio.Length)];
+        audioSource.Play();
+    }
 
 }
 

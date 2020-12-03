@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TowerDefence.Managers;
-using TowerDefence.Enemies;
 
 public enum WeaponAim {
     NONE,
@@ -48,32 +46,33 @@ public class WeaponHandler : MonoBehaviour {
     //ammo variables
     public int currentAmmo;
     public int buckshotCurrentAmmo;
-    private int maxAmmo = 6;
-    private int buckShotMaxAmmo = 2;
+    private int pistolClip = 6;
+    private int buckshotClip = 2;
+    public static int maxAmmo = 12;
+    public static int maxBuckshot = 4;
+    public static bool outOfAmmo = false;
+    public static bool outOfBuckshot = false;
     private float reloadTime = 2f;
     public bool isReloading = false;
-    public float damage = 20f;
+
     //references
-    Camera mainCam;
     WeaponManager weaponManager;
-    public GameObject bloodsplatter;
 
     void Awake() 
     {
         weaponManager = GetComponent<WeaponManager>();
         anim = GetComponent<Animator>();
-        mainCam = Camera.main;
 
     }
     void Start()
     {
         if (currentAmmo <= 0)
         {
-            currentAmmo = maxAmmo;
+            currentAmmo = pistolClip;
         }
         if (buckshotCurrentAmmo <= 0)
         {
-            buckshotCurrentAmmo = buckShotMaxAmmo;
+            buckshotCurrentAmmo = buckshotClip;
         }
     }
     void OnEnable()
@@ -82,72 +81,34 @@ public class WeaponHandler : MonoBehaviour {
     }
     void Update()
     {
+        ammoText.text = currentAmmo.ToString() + "/" + maxAmmo.ToString();
+        BuckshotAmmoText.text = buckshotCurrentAmmo.ToString() + "/" + maxBuckshot.ToString();
+
         if (isReloading)
         {
             return;
         }
+
         if (currentAmmo <= 0)
         {
-            StartCoroutine(Reload());
-            return;
+            AmmoCheck();
+            if (!outOfAmmo)
+            {
+                StartCoroutine(Reload());
+                return;
+            }
+
         }
+
         if (buckshotCurrentAmmo <= 0)
         {
-            StartCoroutine(ReloadShotgun());
-            return;
+            AmmoCheck();
+            if (!outOfBuckshot)
+            {
+                StartCoroutine(ReloadShotgun());
+                return;
+            }
         }
-        ammoText.text = currentAmmo + "/" + maxAmmo;
-        BuckshotAmmoText.text = buckshotCurrentAmmo + "/" + buckShotMaxAmmo;
-    }
-
-    //Visual events to be called during animations
-    public void ShootAnimation() 
-    {
-        anim.SetTrigger(AnimationTags.SHOOT_TRIGGER);
-    }
-    public void ReloadAnimation()
-    {
-        anim.SetTrigger(AnimationTags.RELOAD_TRIGGER);
-    }
-    //Sound events to be called during animations
-    void Play_ShootSound() 
-    {
-        shootSound.Play();
-    }
-
-    void Play_ReloadSound() 
-    {
-        reloadSound.Play();
-    }
-
-    void Play_GunSwapSound()
-    {
-        gunSwapSound.Play();
-    }
-    //melee attacks
-    void Turn_On_AttackPoint() 
-    {
-        attack_Point.SetActive(true);
-    }
-
-    void Turn_Off_AttackPoint() 
-    {
-        if(attack_Point.activeInHierarchy) 
-        {
-            attack_Point.SetActive(false);
-        }
-    }
-    void Turn_On_CrossHair()
-    {
-        crosshair.SetActive(true);
-    }
-    void Turn_Off_CrossHair()
-    {
-        if (crosshair.activeInHierarchy)
-        {
-            crosshair.SetActive(false);
-        }
-        
     }
     public void RemoveAmmo()
     {
@@ -166,7 +127,8 @@ public class WeaponHandler : MonoBehaviour {
 
         yield return new WaitForSeconds(reloadTime);
 
-        currentAmmo = maxAmmo;
+        currentAmmo = pistolClip;
+        maxAmmo -= pistolClip;
         isReloading = false;
         Debug.Log("Reload Complete..");
     }
@@ -179,11 +141,37 @@ public class WeaponHandler : MonoBehaviour {
 
         yield return new WaitForSeconds(reloadTime);
 
-        buckshotCurrentAmmo = buckShotMaxAmmo;
+        buckshotCurrentAmmo = buckshotClip;
+        maxBuckshot -= buckshotClip;
         isReloading = false;
         Debug.Log("Reload Complete..");
     }
+    //check ammo function to check current max ammo value
+    //trigger control bool
+    private void AmmoCheck()
+    {
+        if (maxAmmo <= 0)
+        {
+            maxAmmo = 0;
+            outOfAmmo = true;
+        }
+        else
+        {
+            outOfAmmo = false;
+        }
+
+        if (maxBuckshot <= 0)
+        {
+            maxBuckshot = 0;
+            outOfBuckshot = true;
+        }
+        else
+        {
+            outOfBuckshot = false;
+        }
+    }
     //animation event reload block toggle
+    //prevents reload bug
     public void ReloadBlock()
     {
       PlayerAttack.reloadCheck = true;
@@ -192,23 +180,54 @@ public class WeaponHandler : MonoBehaviour {
     {
         PlayerAttack.reloadCheck = false;
     }
-    public void BulletFired()
+    //Visual events to be called during animations
+    public void ShootAnimation()
     {
-        RaycastHit hit;
-        Debug.Log("Bullet Fired");
+        anim.SetTrigger(AnimationTags.SHOOT_TRIGGER);
+    }
+    public void ReloadAnimation()
+    {
+        anim.SetTrigger(AnimationTags.RELOAD_TRIGGER);
+    }
+    //Sound events to be called during animations
+    void Play_ShootSound()
+    {
+        shootSound.Play();
+    }
 
-        if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out hit))
+    void Play_ReloadSound()
+    {
+        reloadSound.Play();
+    }
+
+    void Play_GunSwapSound()
+    {
+        gunSwapSound.Play();
+    }
+    //melee attacks
+    void Turn_On_AttackPoint()
+    {
+        attack_Point.SetActive(true);
+    }
+
+    void Turn_Off_AttackPoint()
+    {
+        if (attack_Point.activeInHierarchy)
         {
-            if (hit.transform.tag == Tags.ENEMY_TAG)
-            {
-                hit.transform.GetComponent<Enemy>().Damage(damage);
-                Instantiate(bloodsplatter, hit.transform.position, Quaternion.identity);
-            }
-            else
-            {
-                Debug.Log("Missed");
-            }
+            attack_Point.SetActive(false);
         }
+    }
+    void Turn_On_CrossHair()
+    {
+        crosshair.SetActive(true);
+    }
+    void Turn_Off_CrossHair()
+    {
+        if (crosshair.activeInHierarchy)
+        {
+            crosshair.SetActive(false);
+        }
+
     }
 }
 

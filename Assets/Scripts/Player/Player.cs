@@ -13,9 +13,7 @@ namespace TowerDefence
         /// the reference to the only player gameObject in the game
         /// </summary>
         public static Player instance = null;
-
-        [SerializeField, Tooltip("sets the initial amount of money player has")]
-        private int money = 100;
+        public int money = 100;
         public Text moneyText;
 
         /// <summary>
@@ -25,6 +23,10 @@ namespace TowerDefence
         public void AddMoney(int _money)
         {
             money += _money;
+        }
+        public void RemoveMoney(int _money)
+        {
+            money -= _money;
         }
         public void AddMoney(Enemies.Enemy _enemy)
         {

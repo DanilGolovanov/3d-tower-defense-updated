@@ -45,25 +45,26 @@ namespace TowerDefence.Enemies
         {
             PATROL,
             CHASE,
-            ATTACK
+            ATTACK,
+            ATTACKBASE,
+            DYING
         }
         [Header("AI Finate State Machine")]
-        private EnemyState enemyState;
+        public EnemyState enemyState;
         public float patrolSpeed = 0.5f;
         public float attackSpeed = 4f;
         public float chaseDistance = 7f;
         private float currentChaseDistance;
         public float attackDistance = 3f;
+        public float baseAttackDistance = 10f;
         public float chaseAfterAttackDistance = 2f;
         public float waitBeforeAttack = 2f;
         private float attackTimer;
-        private bool dead = false;
+        private bool dead;
 
         [Header("General Stats")]
         [Tooltip("how much damage enemy can take before dying")]
         public float health = 1;
-        [SerializeField, Tooltip("damage to player health")]
-        private float damage = 1;
 
         [Header("Rewards")]
         [SerializeField, Tooltip("The amount of xp tower gets killing an enemy")]
@@ -77,7 +78,9 @@ namespace TowerDefence.Enemies
         private Animator enemyAnim;
         private Transform enemyTransform;
         private Transform target;
+        private Transform targetBase;
         private NavMeshAgent navAgent;
+        public MainBase mainBase;
         public GameObject attack_Point;
         //private EnemyAudio enemy_Audio;
 
@@ -85,8 +88,10 @@ namespace TowerDefence.Enemies
         {
             navAgent = GetComponent<NavMeshAgent>();
             enemyAnim = GetComponent<Animator>();
+            mainBase = GameObject.FindGameObjectWithTag("Base").GetComponent<MainBase>();
             enemyTransform = transform; //assign the reference of Transform
             target = GameObject.FindGameObjectWithTag("Player").transform;
+            targetBase = GameObject.FindGameObjectWithTag("Base").transform;
 
             if (wayPoints.Length > 0)
             {
@@ -113,26 +118,39 @@ namespace TowerDefence.Enemies
             attackTimer = waitBeforeAttack;
             // memorize the value of chase distance
             currentChaseDistance = chaseDistance;
+            dead = false;
         }
 
         // Update is called once per frame
         void Update()
         {
             if (enemyState == EnemyState.PATROL)
-            {
-                Patrol();
-            }
+                {
+                    Patrol();
+                }
 
             if (enemyState == EnemyState.CHASE)
-            {
-                Chase();
-            }
+                {
+                    Chase();
+                }
 
             if (enemyState == EnemyState.ATTACK)
-            {
-                Attack();
-            }
+                {
+                    Attack();
+                }
+
+            if (enemyState == EnemyState.ATTACKBASE)
+                {
+                    AttackBase();
+                }
+
+            if (enemyState == EnemyState.DYING)
+                {
+                    Dying();
+                }
+            
             Debug.Log(enemyState);
+
         }
         public EnemyState Enemy_State
         {
@@ -143,7 +161,8 @@ namespace TowerDefence.Enemies
             // nav agent can move
             navAgent.isStopped = false;
             navAgent.speed = patrolSpeed;
-            FollowWaypoint();
+            //FollowWaypoint();
+            navAgent.SetDestination(targetBase.position);
 
             if (navAgent.velocity.sqrMagnitude > 0)
             {
@@ -157,6 +176,12 @@ namespace TowerDefence.Enemies
             if (Vector3.Distance(transform.position, target.position) <= chaseDistance)
             {
                 enemyState = EnemyState.CHASE;
+                // play spotted audio
+                //enemy_Audio.Play_ScreamSound();
+            }
+            if (Vector3.Distance(transform.position, targetBase.position) <= 4.5f)
+            {
+                enemyState = EnemyState.ATTACKBASE;
                 // play spotted audio
                 //enemy_Audio.Play_ScreamSound();
             }
@@ -213,6 +238,39 @@ namespace TowerDefence.Enemies
             }
 
         }
+        void AttackBase()
+        {
+            navAgent.velocity = Vector3.zero;
+            navAgent.isStopped = true;
+            attackTimer += Time.deltaTime;
+
+            if (attackTimer > waitBeforeAttack)
+            {
+                enemyAnim.SetBool("isAttacking", true);
+                attackTimer = 0f;
+                // play attack sound
+                //enemy_Audio.Play_AttackSound();
+
+            }
+        }
+        void Dying()
+        {
+            dead = true;
+            navAgent.velocity = Vector3.zero;
+            navAgent.enabled = false;
+            disableHitDetection();
+            StartCoroutine(Die());
+        }
+        /// <summary>
+        /// Handles the visual and technical features of dying
+        /// </summary>
+        IEnumerator Die()
+        {
+            enemyAnim.SetBool("isRunning", false);
+            enemyAnim.SetBool("isDead", true);
+            yield return new WaitForSeconds(5f);
+            onDeath.Invoke(this);
+        }
         void FollowWaypoint()
         {
             if (!dead)
@@ -238,28 +296,15 @@ namespace TowerDefence.Enemies
             currentWayPoint = wayPoints[currentWayPointIndex]; // assign current waypoint from the list
         }
         /// <summary>
-        /// Handles damage of the enemy and if below or equal to 0 calls Die()
+        /// Handles damage of the enemy and if below or equal to switches enum state to dying
         /// </summary>
-        /// <param name="_tower">The tower doing damage to the enemy</param>
         public void Damage(float _damage)
         {
             health -= _damage;
             if (health <= 0)
             {
-                StartCoroutine(Die());
+                enemyState = EnemyState.DYING;
             }
-        }
-        /// <summary>
-        /// Handles the visual and technical features of dying
-        /// </summary>
-        IEnumerator Die()
-        {
-            dead = true;
-            navAgent.velocity = Vector3.zero;
-            enemyAnim.SetBool("isRunning", false);
-            enemyAnim.SetBool("isDead", true);
-            yield return new WaitForSeconds(10f);
-            onDeath.Invoke(this);
         }
         //enemy attack point (to toggle on with animation event)
         void Turn_On_AttackPoint()
@@ -272,6 +317,13 @@ namespace TowerDefence.Enemies
             if (attack_Point.activeInHierarchy)
             {
                 attack_Point.SetActive(false);
+            }
+        }
+        void disableHitDetection()
+        {
+            foreach (Collider c in GetComponents<Collider>())
+            {
+                c.enabled = false;
             }
         }
     }

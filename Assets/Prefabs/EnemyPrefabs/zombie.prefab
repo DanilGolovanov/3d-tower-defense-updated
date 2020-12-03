@@ -922,17 +922,19 @@ MonoBehaviour:
       m_Calls: []
   turnSpeed: 5
   wayPoints:
-  - wayPoint: {x: 24, y: 0.1, z: 4}
+  - wayPoint: {x: 24, y: 0.1, z: -1.5}
+  enemyState: 0
   patrolSpeed: 4
   attackSpeed: 6
   chaseDistance: 7
   attackDistance: 3
+  baseAttackDistance: 10
   chaseAfterAttackDistance: 2
   waitBeforeAttack: 2
   health: 1
-  damage: 1
   xp: 1
   money: 1
+  mainBase: {fileID: 0}
   attack_Point: {fileID: 7661103757202395799}
 --- !u!1 &4045073332376419239
 GameObject:
@@ -1906,6 +1908,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 2048
+  camTransform: {fileID: 0}
 --- !u!1 &7703183048779662519
 GameObject:
   m_ObjectHideFlags: 0
