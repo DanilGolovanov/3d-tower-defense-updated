@@ -4,6 +4,7 @@ using TowerDefence;
 using TowerDefence.Manager;
 using TowerDefence.Towers;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TowerMenu : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class TowerMenu : MonoBehaviour
     private bool towerExists;
 
     private TowerCheck currentTower;
+
+    [SerializeField]
+    private Text upgradePriceText;
 
     public void PurchaseTower(string towerTypeName)
     {
@@ -99,11 +103,15 @@ public class TowerMenu : MonoBehaviour
         currentTowerPlatform = other.GetComponentInParent<TowerPlatform>();
         towerExists = other.GetComponentInChildren<TowerCheck>();
         currentTower = other.GetComponentInChildren<TowerCheck>();
+
+        upgradePriceText.text = "$" + other.GetComponentInChildren<TowerType>().upgradeCost;
     }
 
     private void OnTriggerStay(Collider other)
     {
         currentTower = other.GetComponentInChildren<TowerCheck>();
+        upgradePriceText.text = "$" + other.GetComponentInChildren<TowerType>().upgradeCost;
+
         if (other.gameObject.tag == "TowerPlatform")
         {
             if (!towerExists)
