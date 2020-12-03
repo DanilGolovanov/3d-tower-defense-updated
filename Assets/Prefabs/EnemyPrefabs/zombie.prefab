@@ -1908,7 +1908,20 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 2048
-  camTransform: {fileID: 0}
+  hitPlayerAudio:
+  - {fileID: 8300000, guid: 244fcc3be3e49ec4985026855ad40988, type: 3}
+  - {fileID: 8300000, guid: 9ec8938b649d740489c4014491d994be, type: 3}
+  - {fileID: 8300000, guid: 589dc75ae6c48dc49a570dd50aec721f, type: 3}
+  - {fileID: 8300000, guid: 22a523bb5dac10b4394db4644ed769f2, type: 3}
+  - {fileID: 8300000, guid: df4e8cdf3040b0a4e824b0f41715202f, type: 3}
+  - {fileID: 8300000, guid: 0b86f2504468c7349afa9a4adda7296c, type: 3}
+  hitBaseAudio:
+  - {fileID: 8300000, guid: 244fcc3be3e49ec4985026855ad40988, type: 3}
+  - {fileID: 8300000, guid: 9ec8938b649d740489c4014491d994be, type: 3}
+  - {fileID: 8300000, guid: 589dc75ae6c48dc49a570dd50aec721f, type: 3}
+  - {fileID: 8300000, guid: 22a523bb5dac10b4394db4644ed769f2, type: 3}
+  - {fileID: 8300000, guid: df4e8cdf3040b0a4e824b0f41715202f, type: 3}
+  - {fileID: 8300000, guid: 0b86f2504468c7349afa9a4adda7296c, type: 3}
 --- !u!1 &7703183048779662519
 GameObject:
   m_ObjectHideFlags: 0
