@@ -84,9 +84,9 @@ namespace TowerDefence.Towers
                 // if the tower type can hit multiple enemies at once
                 if (canHitMultipleEnemies)
                 {
-                    foreach (var enemy in closeEnemies)
+                    foreach (Enemy enemy in closeEnemies)
                     {
-                        enemy.health -= damageToGive;
+                        enemy.Damage(damageToGive);
                     }
                 }
                 // if tower can't attack multiple enemies, just make damage to one of them
@@ -94,7 +94,7 @@ namespace TowerDefence.Towers
                 {
                     if (closeEnemies.Length > 0)
                     {
-                        closeEnemies[0].health -= damageToGive;
+                        closeEnemies[0].Damage(damageToGive);
                     }
                 }
                 foreach (var towerComponent in towerComponents)
