@@ -10,6 +10,8 @@ public class PlayerAttack : MonoBehaviour
     public float damage = 20f;
     private bool attackCooldown = false;
     public GameObject bloodsplatter;
+    public GameObject towerMenu;
+    public GameObject baseMenu;
     private Camera mainCam;
     private WeaponManager weaponManager;
 
@@ -28,7 +30,7 @@ public class PlayerAttack : MonoBehaviour
 
     void WeaponShoot()
     {
-        if (Input.GetMouseButtonDown(0) && !attackCooldown && !reloadCheck)
+        if (Input.GetMouseButtonDown(0) && !attackCooldown && !reloadCheck &&!MenuCheck())
         {
             // handle melee
             if (weaponManager.GetCurrentSelectedWeapon().tag == Tags.MELEE_TAG)
@@ -77,6 +79,14 @@ public class PlayerAttack : MonoBehaviour
                 Debug.Log("Missed");
             }
         }
+    }
+    public bool MenuCheck()
+    {
+        if (towerMenu.activeInHierarchy || baseMenu.activeInHierarchy)
+        {
+            return true;
+        }
+        return false;
     }
 }
 
