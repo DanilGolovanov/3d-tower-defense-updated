@@ -11,11 +11,6 @@ namespace TowerDefence.Towers
         private Transform towerHolder;
         private Tower heldTower;
 
-        private void OnMouseUpAsButton()
-        {
-            // TowerManager.instance.PurchaseTower(this);
-        }
-
         public void AddTower(Tower _tower)
         {
             heldTower = _tower;

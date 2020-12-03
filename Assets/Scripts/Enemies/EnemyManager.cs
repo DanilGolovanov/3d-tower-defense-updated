@@ -35,20 +35,20 @@ namespace TowerDefence.Managers
         }
 
         /// <summary>
-        /// loops through all eneimes alive in the game, finding the closest enimes within a certain range
+        /// loops through all enemies alive in the game, finding the closest es within a certain range
         /// </summary>
-        /// <param name="_target">the object we are comparing the distance to</param>
+        /// <param name="_targetPosition">the object we are comparing the distance to</param>
         /// <param name="_minRange">the max range we are finding eneimes within</param>
         /// <param name="_maxRange">the range must be at least from target</param>
-        /// <returns>the list of eneimes within the given range</returns>
-        public Enemy[] GetClosestEnemies(Transform _target, float _maxRange, float _minRange = 0)
+        /// <returns>the list of enemies within the given range</returns>
+        public Enemy[] GetClosestEnemies(Vector3 _targetPosition, float _maxRange, float _minRange = 0)
         {
             List<Enemy> closeEnemies = new List<Enemy>();
 
             foreach(Enemy enemy in aliveEnemies)
             {
                 //detect if enemy is within the specificed range, if so append to list
-                float distance = Vector3.Distance(enemy.transform.position, _target.position);
+                float distance = Vector3.Distance(enemy.transform.position, _targetPosition);
                 if (distance < _maxRange && distance >_minRange)
                 {
                     closeEnemies.Add(enemy);
