@@ -14,6 +14,7 @@ TagManager:
   - Base
   - Audio
   - FPSCamera
+  - Ambiance
   layers:
   - Default
   - TransparentFX

@@ -43,6 +43,7 @@ namespace TowerDefence.Enemies
         public AudioClip inbetweenWaveAmbiance;
         private AudioSource audioSource;
         private AudioListener audioListener;
+        private bool inbetweenAmbPlay = false;
 
 
         void Start()
@@ -51,7 +52,7 @@ namespace TowerDefence.Enemies
             wavesCountDown = timeBetweenWaves;
             enemyManager = EnemyManager.instance;
             audioListener = GameObject.FindGameObjectWithTag("FPSCamera").GetComponent<AudioListener>();
-            audioSource = GetComponent<AudioSource>();
+            audioSource = GameObject.FindGameObjectWithTag("Ambiance").GetComponent<AudioSource>();
         }
 
         void Update()
@@ -143,7 +144,10 @@ namespace TowerDefence.Enemies
                 RenderSettings.skybox.SetColor("_Tint", nonWave);
                 directionalLight.color = nonWaveLight;
                 RenderSettings.fog = false;
-                PlayInbetweenWave();
+                if (audioSource.isPlaying)
+                {
+                    StopRandomWave();
+                }
             }
 
             if (state == SpawnPhase.SPAWNING)
@@ -151,7 +155,10 @@ namespace TowerDefence.Enemies
                 RenderSettings.skybox.SetColor("_Tint", inWave);
                 directionalLight.color = inWaveLight;
                 RenderSettings.fog = true;
-                PlayRandomWave();
+                if (!audioSource.isPlaying)
+                {
+                    PlayRandomWave();
+                }
             }
         }
         void PlayRandomWave()
@@ -159,10 +166,9 @@ namespace TowerDefence.Enemies
             audioSource.clip = waveAmbiance[Random.Range(0, waveAmbiance.Length)];
             audioSource.Play();
         }
-        void PlayInbetweenWave()
+        void StopRandomWave()
         {
-            audioSource.clip = inbetweenWaveAmbiance;
-            audioSource.Play();
+            audioSource.Stop();
         }
     }
 }
