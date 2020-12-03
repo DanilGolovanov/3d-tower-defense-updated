@@ -110,7 +110,10 @@ public class TowerMenu : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         currentTower = other.GetComponentInChildren<TowerCheck>();
-        upgradePriceText.text = "$" + other.GetComponentInChildren<TowerType>().upgradeCost;
+        if (other.GetComponentInChildren<TowerType>())
+        {
+            upgradePriceText.text = "$" + other.GetComponentInChildren<TowerType>().upgradeCost;
+        }       
 
         if (other.gameObject.tag == "TowerPlatform")
         {
