@@ -116,7 +116,7 @@ namespace TowerDefence.Towers
                     {
                         closeEnemies[0].Damage(damageToGive);
                         Instantiate(bloodSplat, closeEnemies[0].transform.position, Quaternion.identity);
-                        //StartCoroutine("DrawBulletLine");
+                        StartCoroutine("DrawBulletLine");
 
                         if (towerType == 0)
                         {
@@ -135,7 +135,6 @@ namespace TowerDefence.Towers
                 foreach (TowerComponent towerComponent in towerComponents)
                 {
                     towerComponent.PlayAttackVisuals();
-                    StartCoroutine("DrawBulletLine");
                 }
                 rechargeCount = rechargeTime;
             }
