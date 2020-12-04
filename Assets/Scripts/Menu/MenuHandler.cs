@@ -49,7 +49,6 @@ public class MenuHandler : MonoBehaviour
         if (!PlayerPrefs.HasKey("fullscreen"))
         {
             PlayerPrefs.SetInt("fullscreen", 0);
-            Screen.fullScreen = false;
         }
         else
         {

@@ -23,4 +23,8 @@ public class GameOver : MonoBehaviour
     {
         SceneManager.LoadScene(scenename);
     }
+    public void RestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+    }
 }
