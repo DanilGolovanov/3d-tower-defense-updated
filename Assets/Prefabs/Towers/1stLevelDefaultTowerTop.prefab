@@ -85,6 +85,8 @@ MonoBehaviour:
   initialUpgradeCost: 40
   bloodSplat: {fileID: 1996451317242445463, guid: 92623916033870241a45b085a2c03f40,
     type: 3}
+  bulletLine: {fileID: 7031212934748487234, guid: 644de2f1068bba847bf153c45828024c,
+    type: 3}
 --- !u!65 &3207696231043215490
 BoxCollider:
   m_ObjectHideFlags: 0

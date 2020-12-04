@@ -57,6 +57,9 @@ namespace TowerDefence.Towers
         private AudioSource sniperTower;
         private AudioSource machineGunTower;
 
+        [SerializeField]
+        private LineRenderer bulletLine;
+
         private void Start()
         {
             audioListener = GameObject.FindGameObjectWithTag("FPSCamera").GetComponent<AudioListener>();
@@ -113,6 +116,9 @@ namespace TowerDefence.Towers
                     {
                         closeEnemies[0].Damage(damageToGive);
                         Instantiate(bloodSplat, closeEnemies[0].transform.position, Quaternion.identity);
+                        bulletLine.positionCount = 2;
+                        bulletLine.SetPosition(0, transform.position);
+                        bulletLine.SetPosition(1, closeEnemies[0].transform.position);
 
                         if (towerType == 0)
                         {

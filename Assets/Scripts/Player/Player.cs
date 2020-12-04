@@ -66,7 +66,7 @@ namespace TowerDefence
                 return;
             }
             //this should only happen to the instance
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
 
         // Update is called once per frame

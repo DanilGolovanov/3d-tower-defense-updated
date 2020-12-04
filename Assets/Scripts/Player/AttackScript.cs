@@ -12,6 +12,15 @@ public class AttackScript : MonoBehaviour
     public LayerMask layerMask;
     public GameObject bloodSplat;
 
+    public AudioClip[] playerHitSounds;
+    private AudioSource audioSource;
+    private AudioListener audioListener;
+
+    private void Start()
+    {
+        audioListener = GameObject.FindGameObjectWithTag("FPSCamera").GetComponent<AudioListener>();
+        audioSource = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioSource>();
+    }
     void Update () {
 
         Collider[] hits = Physics.OverlapSphere(transform.position, radius, layerMask);
@@ -20,12 +29,17 @@ public class AttackScript : MonoBehaviour
         {
             hits[0].gameObject.GetComponent<Enemy>().Damage(damage);
             Instantiate(bloodSplat, hits[0].transform.position, Quaternion.identity);
+            audioSource.Play();
 
             gameObject.SetActive(false);
-
         }
 
 	}
+    void PlayPlayerHit()
+    {
+        audioSource.clip = playerHitSounds[Random.Range(0, playerHitSounds.Length)];
+        audioSource.Play();
+    }
 
 }
 

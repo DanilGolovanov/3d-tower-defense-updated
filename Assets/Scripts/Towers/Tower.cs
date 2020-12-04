@@ -91,7 +91,7 @@ namespace TowerDefence.Towers
             }
         }
 
-        protected Enemy TargetedEnemy
+        public Enemy TargetedEnemy
         {
             get
             {

@@ -628,7 +628,7 @@ GameObject:
   - component: {fileID: 720579784}
   - component: {fileID: 720579787}
   m_Layer: 5
-  m_Name: Intro
+  m_Name: Outro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -920,8 +920,9 @@ GameObject:
   m_Component:
   - component: {fileID: 809656126}
   - component: {fileID: 809656125}
+  - component: {fileID: 809656127}
   m_Layer: 0
-  m_Name: IntroManager
+  m_Name: OutroManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -954,6 +955,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &809656127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809656124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ab6f9b25cf663a49be0a6e9018e9451, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &928748913
 GameObject:
   m_ObjectHideFlags: 0
