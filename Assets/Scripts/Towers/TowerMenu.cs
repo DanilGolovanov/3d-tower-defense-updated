@@ -66,7 +66,6 @@ public class TowerMenu : MonoBehaviour
             float positiveStatMultiplier = towerStats.positiveStatMultiplier;
             float negativeStatMultiplier = towerStats.negativeStatMultiplier;
             GameObject bloodSplat = towerStats.bloodSplat;
-            LineRenderer bulletLine = towerStats.bulletLine;
             // save upgraded tower level
             int level = currentTower.GetComponent<TowerType>().level + 1;
 
@@ -80,6 +79,22 @@ public class TowerMenu : MonoBehaviour
             towerHolder.transform.SetParent(currentTowerPlatform.GetComponent<Transform>().Find("Tower Holder"));
             // set up position of the empty gameObject (just in case)
             towerHolder.transform.localPosition = Vector3.zero;
+
+            // assign current tower and upgrade it to a new level
+            currentTower = towerHolder.GetComponent<TowerCheck>();
+            // add tower type script to the tower and update its stats
+            towerHolder.AddComponent<TowerType>();
+            currentTower.GetComponent<TowerType>().level = level;
+            currentTower.GetComponent<TowerType>().towerType = towerType;
+            currentTower.GetComponent<TowerType>().maxHealth = maxHealth * positiveStatMultiplier;
+            currentTower.GetComponent<TowerType>().damageToGive = damageToGive * positiveStatMultiplier;
+            currentTower.GetComponent<TowerType>().fireRange = fireRange * positiveStatMultiplier;
+            currentTower.GetComponent<TowerType>().rechargeTime = rechargeTime * negativeStatMultiplier;
+            currentTower.GetComponent<TowerType>().canHitMultipleEnemies = canHitMultipleEnemies;
+            currentTower.GetComponent<TowerType>().upgradeCost = level * initialUpgradeCost;
+            currentTower.GetComponent<TowerType>().initialUpgradeCost = initialUpgradeCost;
+            currentTower.GetComponent<TowerType>().bloodSplat = bloodSplat;
+            upgradePriceText.text = "$" + currentTower.GetComponentInChildren<TowerType>().upgradeCost;
 
             float towerTopHeight = 0;
             // build required number of base levels
@@ -97,23 +112,6 @@ public class TowerMenu : MonoBehaviour
             towerTopHeight += towerTop.GetComponent<Collider>().bounds.size.y;
             towerTop.SetParent(towerHolder.transform);
             towerTop.localPosition = new Vector3(0, towerTopHeight, 0);
-
-            // assign current tower and upgrade it to a new level
-            currentTower = towerHolder.GetComponent<TowerCheck>();
-            // add tower type script to the tower and update its stats
-            towerHolder.AddComponent<TowerType>();
-            currentTower.GetComponent<TowerType>().level = level;
-            currentTower.GetComponent<TowerType>().towerType = towerType;
-            currentTower.GetComponent<TowerType>().maxHealth = maxHealth * positiveStatMultiplier;
-            currentTower.GetComponent<TowerType>().damageToGive = damageToGive * positiveStatMultiplier;
-            currentTower.GetComponent<TowerType>().fireRange = fireRange * positiveStatMultiplier;
-            currentTower.GetComponent<TowerType>().rechargeTime = rechargeTime * negativeStatMultiplier;
-            currentTower.GetComponent<TowerType>().canHitMultipleEnemies = canHitMultipleEnemies;
-            currentTower.GetComponent<TowerType>().upgradeCost = level * initialUpgradeCost;
-            currentTower.GetComponent<TowerType>().initialUpgradeCost = initialUpgradeCost;
-            currentTower.GetComponent<TowerType>().bloodSplat = bloodSplat;
-            currentTower.GetComponent<TowerType>().bulletLine = bulletLine;
-            upgradePriceText.text = "$" + currentTower.GetComponentInChildren<TowerType>().upgradeCost; 
         }
     }
 

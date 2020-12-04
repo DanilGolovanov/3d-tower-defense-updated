@@ -82,13 +82,10 @@ MonoBehaviour:
   canHitMultipleEnemies: 1
   positiveStatMultiplier: 1.2
   negativeStatMultiplier: 0.85
+  closeEnemies: []
   upgradeCost: 0
   initialUpgradeCost: 50
   bloodSplat: {fileID: 1996451317242445463, guid: 92623916033870241a45b085a2c03f40,
-    type: 3}
-  bulletLinePrefab: {fileID: 7031212934748487234, guid: 644de2f1068bba847bf153c45828024c,
-    type: 3}
-  bulletLine: {fileID: 7031212934748487234, guid: 644de2f1068bba847bf153c45828024c,
     type: 3}
 --- !u!65 &3207696231043215490
 BoxCollider:
@@ -115,6 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea336739b275ff4181ed56ba43c7daa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletLine: {fileID: 3563587429923542457}
 --- !u!1 &8469800316315799448
 GameObject:
   m_ObjectHideFlags: 0
@@ -5214,6 +5212,12 @@ PrefabInstance:
 --- !u!4 &1587707541723588651 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5111355309286736848, guid: 644de2f1068bba847bf153c45828024c,
+    type: 3}
+  m_PrefabInstance: {fileID: 5829774521815755771}
+  m_PrefabAsset: {fileID: 0}
+--- !u!120 &3563587429923542457 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: 7031212934748487234, guid: 644de2f1068bba847bf153c45828024c,
     type: 3}
   m_PrefabInstance: {fileID: 5829774521815755771}
   m_PrefabAsset: {fileID: 0}
