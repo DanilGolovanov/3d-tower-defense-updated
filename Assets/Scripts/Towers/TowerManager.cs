@@ -57,7 +57,12 @@ namespace TowerDefence.Manager
             towers.Add(TowerTypes.MagicTower, spawnableTowers[1]);
             towers.Add(TowerTypes.SniperTower, spawnableTowers[2]);
             towers.Add(TowerTypes.MachineGunTower, spawnableTowers[3]);
+            
+            SetupTowerPrices();
+        }
 
+        public void SetupTowerPrices()
+        {
             towerPriceTexts[0].text = "$" + towers[TowerTypes.DefaultTower].Cost;
             towerPriceTexts[1].text = "$" + towers[TowerTypes.MagicTower].Cost;
             towerPriceTexts[2].text = "$" + towers[TowerTypes.SniperTower].Cost;

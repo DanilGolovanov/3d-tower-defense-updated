@@ -124,7 +124,7 @@ public class TowerMenu : MonoBehaviour
         {
             upgradePriceText.text = "$" + other.GetComponentInChildren<TowerType>().upgradeCost;
         }
-            
+        towerManager.SetupTowerPrices();    
     }
 
     private void OnTriggerStay(Collider other)
