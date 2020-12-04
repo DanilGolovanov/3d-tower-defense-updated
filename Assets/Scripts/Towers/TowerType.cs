@@ -40,7 +40,7 @@ namespace TowerDefence.Towers
 
         private Vector3 towerPosition;
 
-        public Enemy[] closeEnemies;
+        private Enemy[] closeEnemies;
         private EnemyManager enemyManager;
         private Spawner spawner;
 
@@ -52,26 +52,22 @@ namespace TowerDefence.Towers
         public GameObject bloodSplat;
         //audio
         private AudioListener audioListener;
-        private AudioSource defaultTowerAudio;
-        private AudioSource magicTowerAudio;
-        private AudioSource sniperTowerAudio;
-        private AudioSource machineGunTowerAudio;
+        private AudioSource defaultTower;
+        private AudioSource magicTower;
+        private AudioSource sniperTower;
+        private AudioSource machineGunTower;
 
-<<<<<<< Updated upstream
         public LineRenderer bulletLine;
-=======
-        [SerializeField]
-        private LineRenderer bulletLinePrefab;
-        
->>>>>>> Stashed changes
 
         private void Start()
         {
             audioListener = GameObject.FindGameObjectWithTag("FPSCamera").GetComponent<AudioListener>();
-            defaultTowerAudio = GameObject.FindGameObjectWithTag("DefaultTower").GetComponent<AudioSource>();
-            magicTowerAudio = GameObject.FindGameObjectWithTag("MagicTower").GetComponent<AudioSource>();
-            sniperTowerAudio = GameObject.FindGameObjectWithTag("SniperTower").GetComponent<AudioSource>();
-            machineGunTowerAudio = GameObject.FindGameObjectWithTag("MachineGunTower").GetComponent<AudioSource>();
+            defaultTower = GameObject.FindGameObjectWithTag("DefaultTower").GetComponent<AudioSource>();
+            magicTower = GameObject.FindGameObjectWithTag("MagicTower").GetComponent<AudioSource>();
+            sniperTower = GameObject.FindGameObjectWithTag("SniperTower").GetComponent<AudioSource>();
+            machineGunTower = GameObject.FindGameObjectWithTag("MachineGunTower").GetComponent<AudioSource>();
+
+            //bulletLine = GetComponentInChildren<LineRenderer>();
 
             enemyManager = FindObjectOfType<EnemyManager>();
             spawner = FindObjectOfType<Spawner>();
@@ -110,7 +106,7 @@ namespace TowerDefence.Towers
                     {
                         enemy.Damage(damageToGive);
                         Instantiate(bloodSplat, enemy.transform.position, Quaternion.identity);
-                        magicTowerAudio.Play();
+                        magicTower.Play();
                     }
                 }
                 // if tower can't attack multiple enemies, just make damage to one of them
@@ -120,26 +116,19 @@ namespace TowerDefence.Towers
                     {
                         closeEnemies[0].Damage(damageToGive);
                         Instantiate(bloodSplat, closeEnemies[0].transform.position, Quaternion.identity);
-                        foreach (var towerComponent in towerComponents)
-                        {
-                            towerComponent.DrawBulletLineCo();
-                        }
+                        StartCoroutine("DrawBulletLine");
 
-                        if (towerType == TowerTypes.DefaultTower)
+                        if (towerType == 0)
                         {
-                            defaultTowerAudio.Play();
+                            defaultTower.Play();
                         }
                         else if (towerType == TowerTypes.SniperTower)
                         {
-                            sniperTowerAudio.Play();
+                            sniperTower.Play();
                         }
                         else
                         {
-<<<<<<< Updated upstream
                             machineGunTower.Play();         
-=======
-                            machineGunTowerAudio.Play();
->>>>>>> Stashed changes
                         }
                     }
                 }
@@ -155,7 +144,6 @@ namespace TowerDefence.Towers
             }
         }
 
-<<<<<<< Updated upstream
         IEnumerator DrawBulletLine()
         {
             bulletLine.gameObject.SetActive(true);
@@ -165,8 +153,5 @@ namespace TowerDefence.Towers
             yield return new WaitForSeconds(.1f);
             bulletLine.gameObject.SetActive(false);
         }
-=======
-        
->>>>>>> Stashed changes
     }
 }
