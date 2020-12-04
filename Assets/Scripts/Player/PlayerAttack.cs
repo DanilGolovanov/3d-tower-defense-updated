@@ -100,7 +100,7 @@ public class PlayerAttack : MonoBehaviour
     }
     public bool MenuCheck()
     {
-        if (towerMenu.activeInHierarchy || baseMenu.activeInHierarchy || upgradeMenu.activeInHierarchy)
+        if (towerMenu.activeInHierarchy || baseMenu.activeInHierarchy || upgradeMenu.activeInHierarchy || PauseMenu.GameIsPaused)
         {
             return true;
         }

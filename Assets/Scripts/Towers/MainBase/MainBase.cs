@@ -40,19 +40,21 @@ public class MainBase : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T) && !mainBaseMenu.gameObject.activeSelf)
         {
-            Cursor.lockState = CursorLockMode.None;
             mainBaseMenu.gameObject.SetActive(true);
+            Cursor.visible = (true);
+            Cursor.lockState = CursorLockMode.None;
         }
         else if (Input.GetKeyDown(KeyCode.T) && mainBaseMenu.gameObject.activeSelf)
         {
-            Cursor.lockState = CursorLockMode.Locked;
             mainBaseMenu.gameObject.SetActive(false);
+            Cursor.visible = (false);
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        Cursor.lockState = CursorLockMode.Locked;
         mainBaseMenu.gameObject.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void RepairBase()

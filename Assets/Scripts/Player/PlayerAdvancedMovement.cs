@@ -48,9 +48,12 @@ public class PlayerAdvancedMovement : MonoBehaviour
 
     void Update()
     {
-        Sprint();
-        Crouch();
-        tempWalkAnimation();
+        if (!PauseMenu.GameIsPaused)
+        {
+            Sprint();
+            Crouch();
+            tempWalkAnimation();
+        }
     }
 
     void Sprint()

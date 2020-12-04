@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TowerDefence.Managers;
 
 namespace TowerDefence.Enemies
@@ -109,10 +110,7 @@ namespace TowerDefence.Enemies
 
             if (nextWave + 1 > waves.Length - 1)
             {
-                //call game over here
-                //temp code for testing loops back to 1st wave
-                nextWave = 0;
-                Debug.Log("All waves finished");
+                SceneManager.LoadScene(5);
             }
             else
             {

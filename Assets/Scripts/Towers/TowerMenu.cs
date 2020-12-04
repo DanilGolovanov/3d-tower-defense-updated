@@ -141,11 +141,13 @@ public class TowerMenu : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.T) && !towerBuyMenu.gameObject.activeSelf)
                 {
+                    Cursor.visible = (true);
                     Cursor.lockState = CursorLockMode.None;
                     towerBuyMenu.gameObject.SetActive(true);
                 }
                 else if (Input.GetKeyDown(KeyCode.T) && towerBuyMenu.gameObject.activeSelf)
                 {
+                    Cursor.visible = (false);
                     Cursor.lockState = CursorLockMode.Locked;
                     towerBuyMenu.gameObject.SetActive(false);
                 }
@@ -154,11 +156,13 @@ public class TowerMenu : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.T) && !towerUpgradeMenu.gameObject.activeSelf)
                 {
+                    Cursor.visible = (true);
                     Cursor.lockState = CursorLockMode.None;
                     towerUpgradeMenu.gameObject.SetActive(true);
                 }
                 else if (Input.GetKeyDown(KeyCode.T) && towerUpgradeMenu.gameObject.activeSelf)
                 {
+                    Cursor.visible = (false);
                     Cursor.lockState = CursorLockMode.Locked;
                     towerUpgradeMenu.gameObject.SetActive(false);
                 }

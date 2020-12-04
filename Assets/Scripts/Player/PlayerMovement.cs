@@ -20,7 +20,11 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
-        MovePlayer();
+        if (!PauseMenu.GameIsPaused)
+        {
+            MovePlayer();
+        }
+        
     }
     void MovePlayer()
     {
