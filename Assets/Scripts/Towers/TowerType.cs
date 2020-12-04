@@ -58,7 +58,8 @@ namespace TowerDefence.Towers
         private AudioSource machineGunTower;
 
         [SerializeField]
-        private LineRenderer bulletLine;
+        private LineRenderer bulletLinePrefab;
+        public LineRenderer bulletLine;
 
         private void Start()
         {
@@ -68,6 +69,7 @@ namespace TowerDefence.Towers
             sniperTower = GameObject.FindGameObjectWithTag("SniperTower").GetComponent<AudioSource>();
             machineGunTower = GameObject.FindGameObjectWithTag("MachineGunTower").GetComponent<AudioSource>();
 
+            //bulletLine = GetComponentInChildren<LineRenderer>();
 
             enemyManager = FindObjectOfType<EnemyManager>();
             spawner = FindObjectOfType<Spawner>();
@@ -116,9 +118,7 @@ namespace TowerDefence.Towers
                     {
                         closeEnemies[0].Damage(damageToGive);
                         Instantiate(bloodSplat, closeEnemies[0].transform.position, Quaternion.identity);
-                        bulletLine.positionCount = 2;
-                        bulletLine.SetPosition(0, transform.position);
-                        bulletLine.SetPosition(1, closeEnemies[0].transform.position);
+                        StartCoroutine("DrawBulletLine");
 
                         if (towerType == 0)
                         {
@@ -144,6 +144,16 @@ namespace TowerDefence.Towers
             {
                 rechargeCount -= Time.deltaTime;
             }
+        }
+
+        IEnumerator DrawBulletLine()
+        {
+            bulletLine.gameObject.SetActive(true);
+            bulletLine.positionCount = 2;
+            bulletLine.SetPosition(0, transform.position);
+            bulletLine.SetPosition(1, closeEnemies[0].transform.position);
+            yield return new WaitForSeconds(.1f);
+            bulletLine.gameObject.SetActive(false);
         }
     }
 }

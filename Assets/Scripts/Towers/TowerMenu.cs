@@ -66,6 +66,7 @@ public class TowerMenu : MonoBehaviour
             float positiveStatMultiplier = towerStats.positiveStatMultiplier;
             float negativeStatMultiplier = towerStats.negativeStatMultiplier;
             GameObject bloodSplat = towerStats.bloodSplat;
+            LineRenderer bulletLine = towerStats.bulletLine;
             // save upgraded tower level
             int level = currentTower.GetComponent<TowerType>().level + 1;
 
@@ -111,6 +112,7 @@ public class TowerMenu : MonoBehaviour
             currentTower.GetComponent<TowerType>().upgradeCost = level * initialUpgradeCost;
             currentTower.GetComponent<TowerType>().initialUpgradeCost = initialUpgradeCost;
             currentTower.GetComponent<TowerType>().bloodSplat = bloodSplat;
+            currentTower.GetComponent<TowerType>().bulletLine = bulletLine;
             upgradePriceText.text = "$" + currentTower.GetComponentInChildren<TowerType>().upgradeCost; 
         }
     }
