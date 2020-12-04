@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//keybind manager script
+
 public class KeyBindManager : MonoBehaviour
 {
     //static this class to grab this dictionary across scenes

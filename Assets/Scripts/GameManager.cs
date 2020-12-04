@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//script to control game flow
+//hold health, stamina and base hit point varaibles
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
+    [Header ("Game Calibration")]
     public float currentHealth = 100;
     public float maxHealth = 100;
     public static float currentStamina = 100;
     public static float maxStamina = 100;
-
     public float currentbaseHitPoints = 100;
     public float maxBaseHitPoints = 100;
 

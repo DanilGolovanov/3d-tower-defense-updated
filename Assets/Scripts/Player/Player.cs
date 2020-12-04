@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TowerDefence.Towers;
 
+//script to define the instance of player 
+
 namespace TowerDefence
 {
     public class Player : MonoBehaviour
@@ -52,7 +54,6 @@ namespace TowerDefence
             }
         }
 
-        // Start is called before the first frame update
         void Awake() //awake more often than not goes before start()
         {
             if (instance == null) //if instance doesn't already exist, make it me
@@ -68,7 +69,6 @@ namespace TowerDefence
             //DontDestroyOnLoad(gameObject);
         }
 
-        // Update is called once per frame
         void Update()
         {
             moneyText.text = "$ " + money.ToString();

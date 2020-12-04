@@ -78,10 +78,13 @@ public class WeaponHandler : MonoBehaviour {
             buckshotCurrentAmmo = buckshotClip;
         }
     }
+    //when script is enabled make sure reloading is toggled off
     void OnEnable()
     {
         isReloading = false;
     }
+    //ammo UI
+    //Ammo checking
     void Update()
     {
         ammoText.text = currentAmmo.ToString() + "/" + maxAmmo.ToString();
@@ -121,6 +124,7 @@ public class WeaponHandler : MonoBehaviour {
     {
         buckshotCurrentAmmo--;
     }
+    //corotuines to function alongside reload animations
     IEnumerator Reload()
     {
         isReloading = true;

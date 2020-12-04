@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TowerDefence.Enemies;
 
+//script to calibrate enemy and spawn points
+//holds references for spawned and targettable enemies
+
 namespace TowerDefence.Managers
 {
 

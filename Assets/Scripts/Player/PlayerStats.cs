@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//script to handle player health and stamina onto the UI
 public class PlayerStats : MonoBehaviour
 {
     public Image healthBar;

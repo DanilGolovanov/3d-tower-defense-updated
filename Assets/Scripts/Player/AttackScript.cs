@@ -4,14 +4,16 @@ using UnityEngine;
 using TowerDefence.Managers;
 using TowerDefence.Enemies;
 
+//melee attack script
+
 public class AttackScript : MonoBehaviour 
 {
-
+    [Header ("Melee Calibration")]
     public float damage = 20f;
     public float radius = 1f;
     public LayerMask layerMask;
     public GameObject bloodSplat;
-
+    //melee audio
     public AudioClip[] playerHitSounds;
     private AudioSource audioSource;
     private AudioListener audioListener;
@@ -21,6 +23,10 @@ public class AttackScript : MonoBehaviour
         audioListener = GameObject.FindGameObjectWithTag("FPSCamera").GetComponent<AudioListener>();
         audioSource = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioSource>();
     }
+    //check if attack point game object has collided with anything while active
+    //if so, pass through damage
+    //instantiate blood effects and play audio
+    //toggle attack point off
     void Update () {
 
         Collider[] hits = Physics.OverlapSphere(transform.position, radius, layerMask);

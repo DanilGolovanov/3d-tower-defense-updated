@@ -5,13 +5,15 @@ using TowerDefence.Managers;
 using TowerDefence.Enemies;
 using TowerDefence;
 
+//enemy attack script
+
 public class EnemyAttackScript : MonoBehaviour 
 {
-
+    [Header("Enemy melee attack calibration")]
     public float damage = 20f;
     public float radius = 1f;
     public LayerMask layerMask;
-
+    //audio for enemy attack
     public AudioClip[] hitPlayerAudio;
     public AudioClip[] hitBaseAudio;
     private AudioSource audioSource;
@@ -22,7 +24,12 @@ public class EnemyAttackScript : MonoBehaviour
         audioListener = GameObject.FindGameObjectWithTag("FPSCamera").GetComponent<AudioListener>();
         audioSource = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioSource>();
     }
-
+    //check if attack point hit something
+    //check if something is base or player
+    //pass through damage
+    //shake camera if player hit
+    //play audio
+    //reset attack point
     void Update () 
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, radius, layerMask);
@@ -49,7 +56,8 @@ public class EnemyAttackScript : MonoBehaviour
             }
             else
             {
-                //do tower damage
+                return;
+                //do tower damage here
             }
             //reset attack point
             gameObject.SetActive(false);

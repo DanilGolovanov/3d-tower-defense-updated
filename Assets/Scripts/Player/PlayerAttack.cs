@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TowerDefence.Enemies;
 
+//script to handle player attacks
 public class PlayerAttack : MonoBehaviour
 {
-    
+    [Header ("Player attack calibration")]
     public static bool reloadCheck;
     public float pistolDamage = 40f;
     public float buckshotDamage = 80f;
     private bool attackCooldown = false;
+    //references
     public GameObject bloodsplatter;
     public GameObject towerMenu;
     public GameObject upgradeMenu;
@@ -30,9 +32,13 @@ public class PlayerAttack : MonoBehaviour
         WeaponShoot();
     }
 
+    //check what type of weapon is doing attack
+    //check for cooldown, reload or in a menu
+    //play animation, call melee/projectile method
+    //set cooldown
     void WeaponShoot()
     {
-        if (Input.GetMouseButtonDown(0) && !attackCooldown && !reloadCheck &&!MenuCheck())
+        if (Input.GetMouseButtonDown(0) && !attackCooldown && !reloadCheck && !MenuCheck())
         {
             // handle melee
             if (weaponManager.GetCurrentSelectedWeapon().tag == Tags.MELEE_TAG)
@@ -64,6 +70,10 @@ public class PlayerAttack : MonoBehaviour
     {
         attackCooldown = false;
     }
+    //raycast from main camera
+    //detect a hit
+    //pass through damage to whatever was hit
+    //damage based on ammo type
     public void BulletFired()
     {
         RaycastHit hit;
@@ -98,6 +108,7 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
+    //checking if game menus are active
     public bool MenuCheck()
     {
         if (towerMenu.activeInHierarchy || baseMenu.activeInHierarchy || upgradeMenu.activeInHierarchy || PauseMenu.GameIsPaused)

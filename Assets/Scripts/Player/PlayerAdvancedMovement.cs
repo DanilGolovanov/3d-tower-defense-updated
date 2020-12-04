@@ -7,21 +7,19 @@ using UnityEngine;
 public class PlayerAdvancedMovement : MonoBehaviour
 {
     private PlayerMovement playerMovement;
-
+    [Header ("Player Advanced Movement Calibration")]
     public float sprintSpeed = 10f;
     public float moveSpeed = 5f;
     public float crouchSpeed = 2f;
-
     private Transform lookRoot;
     private float standingHeight = 1.6f;
     private float crouchingHeight = 1f;
     private bool isCrouching;
-
     public float sprintTreshold = 10f;
-
+    //references
     public GameObject arms;
     Animator anim;
-
+    //player audio settings for footsteps
     private PlayerAudio playerAudio;
     private float sprintVolume = 1f;
     private float crouchVolume = 0.1f;
@@ -30,7 +28,6 @@ public class PlayerAdvancedMovement : MonoBehaviour
     private float sprintStepDistance = 0.25f;
     private float crouchStepDistance = 0.5f;
 
-    // Start is called before the first frame update
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
@@ -55,7 +52,9 @@ public class PlayerAdvancedMovement : MonoBehaviour
             tempWalkAnimation();
         }
     }
-
+    //stamina check
+    //input check
+    //change speed, animation and play audio based on distance moving
     void Sprint()
     {
         if(GameManager.currentStamina > 0f)

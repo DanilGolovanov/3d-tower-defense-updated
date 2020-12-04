@@ -6,6 +6,8 @@ using UnityEngine.Events;
 using TowerDefence.Towers;
 using TowerDefence.Managers;
 
+//script to define enemies, FSM to control states and animation
+
 namespace TowerDefence.Enemies
 {
     public class Enemy : MonoBehaviour
@@ -189,13 +191,15 @@ namespace TowerDefence.Enemies
                 }
             } 
         }
-
+        //basic player attack
         void Attack()
         {
+            //stop agent moving
             navAgent.velocity = Vector3.zero;
             navAgent.isStopped = true;
             attackTimer += Time.deltaTime;
-
+            //check attack cooldown
+            //and attack if possible
             if (attackTimer > waitBeforeAttack)
             {
                 enemyAnim.SetBool("isAttacking", true);
@@ -203,6 +207,7 @@ namespace TowerDefence.Enemies
                 PlayEnemyAttackAudio();
 
             }
+            //if player moves out of attack range, chase
             if (Vector3.Distance(transform.position, target.position) >
                attackDistance + chaseAfterAttackDistance)
             {
@@ -211,6 +216,7 @@ namespace TowerDefence.Enemies
             }
 
         }
+        //attack base
         void AttackBase()
         {
             navAgent.velocity = Vector3.zero;
@@ -267,6 +273,7 @@ namespace TowerDefence.Enemies
                 attack_Point.SetActive(false);
             }
         }
+        //disable hit boxes on death
         void disableHitDetection()
         {
             foreach (Collider c in GetComponents<Collider>())
@@ -274,6 +281,7 @@ namespace TowerDefence.Enemies
                 c.enabled = false;
             }
         }
+        //enemy audio
         void PlayEnemyAttackAudio()
         {
             audioSource.clip = enemyAttackAudio[Random.Range(0, enemyAttackAudio.Length)];
@@ -284,6 +292,7 @@ namespace TowerDefence.Enemies
             audioSource.clip = enemyDeathAudio[Random.Range(0, enemyDeathAudio.Length)];
             audioSource.Play();
         }
+        //enemy effects
         void PlayEnemyBloodSplat()
         {
             Instantiate(bloodSplat, transform.position, Quaternion.identity);

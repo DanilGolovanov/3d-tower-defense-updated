@@ -4,11 +4,13 @@ using TowerDefence;
 using UnityEngine;
 using UnityEngine.UI;
 
+//script to handle the main base and main base menu UI
+
 public class MainBase : MonoBehaviour
 {
+    //ui references
     public GameObject mainBaseMenu;
     public Text notifciationText;
-
     public Text baseHitPoints;
     public Text currentHP;
     public Text pistolAmmo;
@@ -21,7 +23,7 @@ public class MainBase : MonoBehaviour
         pistolAmmo.text = "Pistol Ammo = " + WeaponHandler.maxAmmo.ToString();
         shotgunAmmo.text = "Shotgun Ammo = " + WeaponHandler.maxBuckshot.ToString();
     }
-
+    //method to pass through damage dealt to main base
     public void TakeDamage(float damage)
     {
         if (GameManager.instance.currentbaseHitPoints < 0)
@@ -31,7 +33,7 @@ public class MainBase : MonoBehaviour
         }
         GameManager.instance.currentbaseHitPoints -= damage;
     }
-
+    //collision detection to open menus
     private void OnTriggerEnter(Collider other)
     {
         notifciationText.text = "You have $ " + Player.instance.money.ToString() + " Cash";
@@ -51,12 +53,13 @@ public class MainBase : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
         }
     }
+    //and close menus
     private void OnTriggerExit(Collider other)
     {
         mainBaseMenu.gameObject.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
     }
-
+    //methods for onclick functions of UI buttons on base
     public void RepairBase()
     {
         if (GameManager.instance.currentbaseHitPoints < 100)

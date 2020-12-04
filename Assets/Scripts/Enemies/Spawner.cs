@@ -5,15 +5,19 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TowerDefence.Managers;
 
+//wave based system
+
 namespace TowerDefence.Enemies
 {
     public class Spawner : MonoBehaviour
     {
+        //wave states
         public enum SpawnPhase { SPAWNING, WAITING, COUNTING }
 
         [System.Serializable]
         public class Wave
         {
+            [Header ("Wave Calibration")]
             public string name;
             public Transform enemy;
             public int numberOfEnemies;
@@ -24,10 +28,9 @@ namespace TowerDefence.Enemies
         public float timeBetweenWaves = 5;
         private float wavesCountDown;
         private float enemyCheck = 1f;
-        
+        //references
         public SpawnPhase state = SpawnPhase.COUNTING;
         private EnemyManager enemyManager;
-
         public Text waveNotification;
         public Text waveState;
 
@@ -53,7 +56,10 @@ namespace TowerDefence.Enemies
             audioListener = GameObject.FindGameObjectWithTag("FPSCamera").GetComponent<AudioListener>();
             audioSource = GameObject.FindGameObjectWithTag("Ambiance").GetComponent<AudioSource>();
         }
-
+        //check if enimes are alive in waiting state
+        //complete wave if all are dead
+        //switch to spawning state if countdown timer is over
+        //change atmosphere during wave
         void Update()
         {
             if (state == SpawnPhase.WAITING)
@@ -85,7 +91,7 @@ namespace TowerDefence.Enemies
             waveNotification.text = "Wave " + nextWave.ToString();
             SkyChange();
         }
-
+        //spawn enemies over time
         IEnumerator SpawnWave(Wave _wave)
         {
             state = SpawnPhase.SPAWNING;
@@ -99,7 +105,9 @@ namespace TowerDefence.Enemies
             state = SpawnPhase.WAITING;
             yield break;
         }
-
+        //switch state to count down
+        //notfiy player
+        //call win condition if passed wave 10
         void WaveCompleted()
         {
             state = SpawnPhase.COUNTING;
@@ -131,7 +139,7 @@ namespace TowerDefence.Enemies
             }
             return true;
         }
-
+        //change atmosphere of game world during wave
         private void SkyChange()
         {
             if (state == SpawnPhase.COUNTING)

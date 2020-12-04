@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//script to handle mouse look for player
+
 public class MouseLook : MonoBehaviour
 {
     [Header ("Mouse Look Calibration")]
     [SerializeField]
-    private Transform playerRoot, lookRoot; //remember look root transform is different to player transform.
+    private Transform playerRoot, lookRoot; //look root transform is different to player transform.
     [SerializeField]
     private bool invert; //if we will have invert in options panel for FPS controls
     [SerializeField]
@@ -19,14 +21,10 @@ public class MouseLook : MonoBehaviour
     private Vector2 currentMouseLook;
 
 
-
-    // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (Cursor.lockState == CursorLockMode.Locked &&!PauseMenu.GameIsPaused)

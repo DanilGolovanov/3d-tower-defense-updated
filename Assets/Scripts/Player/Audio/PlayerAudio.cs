@@ -2,20 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//script to handle the player footstep audio
+
 public class PlayerAudio : MonoBehaviour
 {
     private AudioSource footSteps;
 
     [SerializeField]
     private AudioClip[] footStepSounds;
-
     private CharacterController charControl;
 
     [HideInInspector]
     public float volume_Min, volume_Max;
-
     private float accumulated_Distance;
-
     [HideInInspector]
     public float step_Distance;
 

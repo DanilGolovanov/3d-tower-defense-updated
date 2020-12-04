@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//script to handle player input to swtich weapons
+//updates UI
+
 public class WeaponManager : MonoBehaviour 
 {
     [SerializeField]
@@ -71,7 +74,7 @@ public class WeaponManager : MonoBehaviour
     {
         weaponSwapCooldown = false;
     }
-
+    //check what weapon is currently equipped
     public WeaponHandler GetCurrentSelectedWeapon() 
     {
         return weapons[currentWeaponIndex];

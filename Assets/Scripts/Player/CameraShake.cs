@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//script to shake camera on player hit
 public class CameraShake : MonoBehaviour
 {
     public static CameraShake instance;
