@@ -57,8 +57,6 @@ namespace TowerDefence.Towers
         private AudioSource sniperTower;
         private AudioSource machineGunTower;
 
-        [SerializeField]
-        private LineRenderer bulletLinePrefab;
         public LineRenderer bulletLine;
 
         private void Start()
@@ -130,7 +128,7 @@ namespace TowerDefence.Towers
                         }
                         else
                         {
-                            machineGunTower.Play();
+                            machineGunTower.Play();         
                         }
                     }
                 }
@@ -151,7 +149,7 @@ namespace TowerDefence.Towers
             bulletLine.gameObject.SetActive(true);
             bulletLine.positionCount = 2;
             bulletLine.SetPosition(0, transform.position);
-            bulletLine.SetPosition(1, closeEnemies[0].transform.position);
+            bulletLine.SetPosition(1, new Vector3(closeEnemies[0].transform.position.x, closeEnemies[0].transform.position.y + closeEnemies[0].GetComponent<BoxCollider>().size.y / 2, closeEnemies[0].transform.position.z));
             yield return new WaitForSeconds(.1f);
             bulletLine.gameObject.SetActive(false);
         }

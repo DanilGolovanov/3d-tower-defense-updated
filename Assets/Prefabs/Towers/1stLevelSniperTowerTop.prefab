@@ -86,8 +86,7 @@ MonoBehaviour:
   initialUpgradeCost: 50
   bloodSplat: {fileID: 1996451317242445463, guid: 92623916033870241a45b085a2c03f40,
     type: 3}
-  bulletLinePrefab: {fileID: 0}
-  bulletLine: {fileID: 0}
+  bulletLine: {fileID: 522190708380163259}
 --- !u!65 &3207696231043215490
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5177,6 +5176,21 @@ PrefabInstance:
       propertyPath: m_Parameters.colorGradient.key0.g
       value: 0.69803923
       objectReference: {fileID: 0}
+    - target: {fileID: 7031212934748487234, guid: 644de2f1068bba847bf153c45828024c,
+        type: 3}
+      propertyPath: m_Positions.Array.data[1].x
+      value: -5.174771
+      objectReference: {fileID: 0}
+    - target: {fileID: 7031212934748487234, guid: 644de2f1068bba847bf153c45828024c,
+        type: 3}
+      propertyPath: m_Positions.Array.data[1].y
+      value: 0.07874179
+      objectReference: {fileID: 0}
+    - target: {fileID: 7031212934748487234, guid: 644de2f1068bba847bf153c45828024c,
+        type: 3}
+      propertyPath: m_Positions.Array.data[1].z
+      value: 2.840751
+      objectReference: {fileID: 0}
     - target: {fileID: 8770592192502303089, guid: 644de2f1068bba847bf153c45828024c,
         type: 3}
       propertyPath: m_Name
@@ -5192,6 +5206,12 @@ PrefabInstance:
 --- !u!4 &2324980925651558697 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5111355309286736848, guid: 644de2f1068bba847bf153c45828024c,
+    type: 3}
+  m_PrefabInstance: {fileID: 7398520594017477369}
+  m_PrefabAsset: {fileID: 0}
+--- !u!120 &522190708380163259 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: 7031212934748487234, guid: 644de2f1068bba847bf153c45828024c,
     type: 3}
   m_PrefabInstance: {fileID: 7398520594017477369}
   m_PrefabAsset: {fileID: 0}

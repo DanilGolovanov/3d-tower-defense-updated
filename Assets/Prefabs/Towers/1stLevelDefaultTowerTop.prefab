@@ -86,7 +86,8 @@ MonoBehaviour:
   initialUpgradeCost: 40
   bloodSplat: {fileID: 1996451317242445463, guid: 92623916033870241a45b085a2c03f40,
     type: 3}
-  bulletLinePrefab: {fileID: 0}
+  bulletLinePrefab: {fileID: 7031212934748487234, guid: 644de2f1068bba847bf153c45828024c,
+    type: 3}
   bulletLine: {fileID: 8000831068099163196}
 --- !u!65 &3207696231043215490
 BoxCollider:
@@ -4986,6 +4987,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7031212934748487234, guid: 644de2f1068bba847bf153c45828024c,
+        type: 3}
+      propertyPath: m_Positions.Array.data[1].x
+      value: -5.174771
+      objectReference: {fileID: 0}
+    - target: {fileID: 7031212934748487234, guid: 644de2f1068bba847bf153c45828024c,
+        type: 3}
+      propertyPath: m_Positions.Array.data[1].y
+      value: 0.07874179
+      objectReference: {fileID: 0}
+    - target: {fileID: 7031212934748487234, guid: 644de2f1068bba847bf153c45828024c,
+        type: 3}
+      propertyPath: m_Positions.Array.data[1].z
+      value: 2.840751
       objectReference: {fileID: 0}
     - target: {fileID: 8770592192502303089, guid: 644de2f1068bba847bf153c45828024c,
         type: 3}

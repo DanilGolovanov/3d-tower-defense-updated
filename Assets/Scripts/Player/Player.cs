@@ -6,7 +6,6 @@ using TowerDefence.Towers;
 
 namespace TowerDefence
 {
-
     public class Player : MonoBehaviour
     {
         /// <summary>

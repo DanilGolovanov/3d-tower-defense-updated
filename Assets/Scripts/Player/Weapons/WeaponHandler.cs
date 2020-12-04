@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//script that handles the weapon types and reload system
+
+//aiming for weapon type (none = melee)
 public enum WeaponAim {
     NONE,
     SELF_AIM,
     AIM
 }
 
+//fire rate for projectiles
 public enum WeaponFireType {
     SINGLE,
     MULTIPLE
 }
 
+//ammo type for projectiles (none = melee)
 public enum WeaponBulletType {
     BULLET,
     BUCKSHOT,
@@ -24,22 +29,21 @@ public class WeaponHandler : MonoBehaviour {
 
     private Animator anim;
     public WeaponAim weapon_Aim;
-
+    [Header ("Weapon Audio")]
     [SerializeField]
     private AudioSource shootSound;
     [SerializeField]
     private AudioSource reloadSound;
     [SerializeField]
     private AudioSource gunSwapSound;
-
+    [Header("Weapon Calibration")]
     public WeaponFireType fireType;
     public WeaponBulletType bulletType;
     public GameObject attack_Point;
     public GameObject crosshair;
-
     public float fireRate = 15f;
 
-    //ammo system
+    [Header("Ammo Calibration")]
     //ammo UI text
     public Text ammoText;
     public Text BuckshotAmmoText;
@@ -62,7 +66,6 @@ public class WeaponHandler : MonoBehaviour {
     {
         weaponManager = GetComponent<WeaponManager>();
         anim = GetComponent<Animator>();
-
     }
     void Start()
     {
