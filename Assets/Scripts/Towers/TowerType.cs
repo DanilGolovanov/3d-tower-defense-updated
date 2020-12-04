@@ -48,16 +48,23 @@ namespace TowerDefence.Towers
 
         public int upgradeCost;
         public int initialUpgradeCost;
-
+        //special effects
         public GameObject bloodSplat;
-       
+        //audio
         private AudioListener audioListener;
-        private AudioSource audioSource;
+        private AudioSource defaultTower;
+        private AudioSource magicTower;
+        private AudioSource sniperTower;
+        private AudioSource machineGunTower;
 
         private void Start()
         {
             audioListener = GameObject.FindGameObjectWithTag("FPSCamera").GetComponent<AudioListener>();
-            audioSource = GameObject.FindGameObjectWithTag("DefaultTower").GetComponent<AudioSource>();
+            defaultTower = GameObject.FindGameObjectWithTag("DefaultTower").GetComponent<AudioSource>();
+            magicTower = GameObject.FindGameObjectWithTag("MagicTower").GetComponent<AudioSource>();
+            sniperTower = GameObject.FindGameObjectWithTag("SniperTower").GetComponent<AudioSource>();
+            machineGunTower = GameObject.FindGameObjectWithTag("MachineGunTower").GetComponent<AudioSource>();
+
 
             enemyManager = FindObjectOfType<EnemyManager>();
             spawner = FindObjectOfType<Spawner>();
@@ -96,6 +103,7 @@ namespace TowerDefence.Towers
                     {
                         enemy.Damage(damageToGive);
                         Instantiate(bloodSplat, enemy.transform.position, Quaternion.identity);
+                        magicTower.Play();
                     }
                 }
                 // if tower can't attack multiple enemies, just make damage to one of them
@@ -108,7 +116,15 @@ namespace TowerDefence.Towers
 
                         if (towerType == 0)
                         {
-                            audioSource.Play();
+                            defaultTower.Play();
+                        }
+                        else if (towerType == TowerTypes.SniperTower)
+                        {
+                            sniperTower.Play();
+                        }
+                        else
+                        {
+                            machineGunTower.Play();
                         }
                     }
                 }

@@ -16,6 +16,9 @@ TagManager:
   - FPSCamera
   - Ambiance
   - DefaultTower
+  - MagicTower
+  - SniperTower
+  - MachineGunTower
   layers:
   - Default
   - TransparentFX

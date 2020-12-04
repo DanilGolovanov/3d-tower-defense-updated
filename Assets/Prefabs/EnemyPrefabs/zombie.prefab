@@ -924,7 +924,7 @@ MonoBehaviour:
   enemyState: 0
   patrolSpeed: 4
   attackSpeed: 8
-  chaseDistance: 5
+  chaseDistance: 9
   attackDistance: 3
   baseAttackDistance: 10
   chaseAfterAttackDistance: 2

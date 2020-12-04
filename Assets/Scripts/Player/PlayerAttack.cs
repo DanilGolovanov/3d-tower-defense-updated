@@ -54,7 +54,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 weaponManager.GetCurrentSelectedWeapon().ShootAnimation();
                 weaponManager.GetCurrentSelectedWeapon().RemoveBuckshot();
-                BulletFired();
+                BuckShotFired();
                 Invoke("ResetAttackCooldown", 0.7f);
                 attackCooldown = true;
             }
@@ -70,14 +70,26 @@ public class PlayerAttack : MonoBehaviour
 
         if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out hit))
         {
-            if (hit.transform.tag == Tags.ENEMY_TAG && weaponManager.GetCurrentSelectedWeapon().bulletType == WeaponBulletType.BUCKSHOT)
-            {
-                hit.transform.GetComponent<Enemy>().Damage(buckshotDamage);
-                Instantiate(bloodsplatter, hit.transform.position, Quaternion.identity);
-            }
-            else if (hit.transform.tag == Tags.ENEMY_TAG && weaponManager.GetCurrentSelectedWeapon().bulletType == WeaponBulletType.BULLET)
+            if (hit.transform.tag == Tags.ENEMY_TAG)
             {
                 hit.transform.GetComponent<Enemy>().Damage(pistolDamage);
+                Instantiate(bloodsplatter, hit.transform.position, Quaternion.identity);
+            }
+            else
+            {
+                return;
+            }
+        }
+    }
+    public void BuckShotFired()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out hit))
+        {
+            if (hit.transform.tag == Tags.ENEMY_TAG)
+            {
+                hit.transform.GetComponent<Enemy>().Damage(buckshotDamage);
                 Instantiate(bloodsplatter, hit.transform.position, Quaternion.identity);
             }
             else

@@ -34,7 +34,10 @@ public class KeyBindManager : MonoBehaviour
         {
             //determine if saved or default key, covert to Enum, add key from dictionary
             //playerprefs does not store strings - must convert here
-            keys.Add(baseSetup[i].keyName, (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString(baseSetup[i].keyName, baseSetup[i].defaultKey)));
+            if (!keys.ContainsKey(baseSetup[i].keyName))
+            {
+                keys.Add(baseSetup[i].keyName, (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString(baseSetup[i].keyName, baseSetup[i].defaultKey)));
+            } 
             //Display assigned key to UI element
             baseSetup[i].keyDisplayText.text = keys[baseSetup[i].keyName].ToString();
         }
