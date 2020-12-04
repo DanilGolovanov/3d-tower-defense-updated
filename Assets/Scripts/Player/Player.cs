@@ -40,9 +40,17 @@ namespace TowerDefence
         /// notifies the TowerManager to place the tower
         /// </summary>
         /// <param name="_tower">the tower being purchased</param>
-        public void PurchaseTower(Tower _tower)
+        public bool PurchaseTower(Tower _tower)
         {
-            money -= _tower.Cost;
+            if (money >= _tower.Cost)
+            {
+                money -= _tower.Cost;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         // Start is called before the first frame update

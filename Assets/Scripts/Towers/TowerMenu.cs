@@ -27,13 +27,17 @@ public class TowerMenu : MonoBehaviour
     public void PurchaseTower(string towerTypeName)
     {
         TowerTypes towerType = RecognizeTowerType(towerTypeName);
-        TowerManager.instance.PurchaseTower(currentTowerPlatform, towerType);
-        towerExists = true;
-        towerBuyMenu.gameObject.SetActive(false);
-        towerUpgradeMenu.gameObject.SetActive(true);
-        currentTower = currentTowerPlatform.GetComponentInChildren<TowerCheck>();
-        currentTower.GetComponent<TowerType>().upgradeCost = currentTower.GetComponent<TowerType>().initialUpgradeCost;
-        upgradePriceText.text = "$" + currentTower.GetComponentInChildren<TowerType>().upgradeCost;
+        // true - if enough money, false - if not enough money
+        bool towerWasBought = TowerManager.instance.PurchaseTower(currentTowerPlatform, towerType);
+        if (towerWasBought)
+        {
+            towerExists = true;
+            towerBuyMenu.gameObject.SetActive(false);
+            towerUpgradeMenu.gameObject.SetActive(true);
+            currentTower = currentTowerPlatform.GetComponentInChildren<TowerCheck>();
+            currentTower.GetComponent<TowerType>().upgradeCost = currentTower.GetComponent<TowerType>().initialUpgradeCost;
+            upgradePriceText.text = "$" + currentTower.GetComponentInChildren<TowerType>().upgradeCost;
+        }       
     }
 
     public void RemoveTower()
@@ -46,60 +50,69 @@ public class TowerMenu : MonoBehaviour
 
     public void UpgradeTower()
     {
-        Player.instance.money -= currentTower.GetComponent<TowerType>().upgradeCost;
-
-        // save tower type and all stats related to the tower type
-        TowerType towerStats = currentTower.GetComponent<TowerType>();
-        TowerTypes towerType = towerStats.towerType;
-        float maxHealth = towerStats.maxHealth;
-        float damageToGive = towerStats.damageToGive;
-        float fireRange = towerStats.fireRange;
-        float rechargeTime = towerStats.rechargeTime;
-        bool canHitMultipleEnemies = towerStats.canHitMultipleEnemies;
-        // save upgraded tower level
-        int level = currentTower.GetComponent<TowerType>().level + 1;
-
-        // destroy existing tower to build an upgraded one
-        Destroy(currentTower.gameObject);
-
-        // create empty gameObject which will hold all parts of the tower (one/multiple bases and top of the tower)
-        GameObject towerHolder = new GameObject("Tower");
-        towerHolder.AddComponent<TowerCheck>();
-        // make the empty gameObject child of the current platform
-        towerHolder.transform.SetParent(currentTowerPlatform.GetComponent<Transform>().Find("Tower Holder"));
-        // set up position of the empty gameObject (just in case)
-        towerHolder.transform.localPosition = Vector3.zero;
-
-        float towerTopHeight = 0;
-        // build required number of base levels
-        for (int i = 0; i < level - 1; i++)
+        if (Player.instance.money >= currentTower.GetComponent<TowerType>().upgradeCost)
         {
-            Transform towerBase = Instantiate(GetTowerBase(towerType));
-            towerBase.SetParent(towerHolder.transform);
-            towerTopHeight = towerBase.GetComponent<Collider>().bounds.size.y / 4 + towerBase.GetComponent<Collider>().bounds.size.y * i;
-            towerBase.localPosition = new Vector3(0, towerTopHeight, 0);
+            Player.instance.money -= currentTower.GetComponent<TowerType>().upgradeCost;
+
+            // save tower type and all stats related to the tower type
+            TowerType towerStats = currentTower.GetComponent<TowerType>();
+            TowerTypes towerType = towerStats.towerType;
+            float maxHealth = towerStats.maxHealth;
+            float damageToGive = towerStats.damageToGive;
+            float fireRange = towerStats.fireRange;
+            float rechargeTime = towerStats.rechargeTime;
+            bool canHitMultipleEnemies = towerStats.canHitMultipleEnemies;
+            int initialUpgradeCost = towerStats.initialUpgradeCost;
+            float positiveStatMultiplier = towerStats.positiveStatMultiplier;
+            float negativeStatMultiplier = towerStats.negativeStatMultiplier;
+            GameObject bloodSplat = towerStats.bloodSplat;
+            // save upgraded tower level
+            int level = currentTower.GetComponent<TowerType>().level + 1;
+
+            // destroy existing tower to build an upgraded one
+            Destroy(currentTower.gameObject);
+
+            // create empty gameObject which will hold all parts of the tower (one/multiple bases and top of the tower)
+            GameObject towerHolder = new GameObject("Tower");
+            towerHolder.AddComponent<TowerCheck>();
+            // make the empty gameObject child of the current platform
+            towerHolder.transform.SetParent(currentTowerPlatform.GetComponent<Transform>().Find("Tower Holder"));
+            // set up position of the empty gameObject (just in case)
+            towerHolder.transform.localPosition = Vector3.zero;
+
+            float towerTopHeight = 0;
+            // build required number of base levels
+            for (int i = 0; i < level - 1; i++)
+            {
+                Transform towerBase = Instantiate(GetTowerBase(towerType));
+                towerBase.SetParent(towerHolder.transform);
+                towerTopHeight = towerBase.GetComponent<Collider>().bounds.size.y / 4 + towerBase.GetComponent<Collider>().bounds.size.y * i;
+                towerBase.localPosition = new Vector3(0, towerTopHeight, 0);
+            }
+
+            // build the tower top       
+            Transform towerTop = Instantiate(GetTowerTop(towerType));
+            // Y position of the tower top 
+            towerTopHeight += towerTop.GetComponent<Collider>().bounds.size.y;
+            towerTop.SetParent(towerHolder.transform);
+            towerTop.localPosition = new Vector3(0, towerTopHeight, 0);
+
+            // assign current tower and upgrade it to a new level
+            currentTower = towerHolder.GetComponent<TowerCheck>();
+            // add tower type script to the tower and update its stats
+            towerHolder.AddComponent<TowerType>();
+            currentTower.GetComponent<TowerType>().level = level;
+            currentTower.GetComponent<TowerType>().towerType = towerType;
+            currentTower.GetComponent<TowerType>().maxHealth = maxHealth * positiveStatMultiplier;
+            currentTower.GetComponent<TowerType>().damageToGive = damageToGive * positiveStatMultiplier;
+            currentTower.GetComponent<TowerType>().fireRange = fireRange * positiveStatMultiplier;
+            currentTower.GetComponent<TowerType>().rechargeTime = rechargeTime * negativeStatMultiplier;
+            currentTower.GetComponent<TowerType>().canHitMultipleEnemies = canHitMultipleEnemies;
+            currentTower.GetComponent<TowerType>().upgradeCost = level * initialUpgradeCost;
+            currentTower.GetComponent<TowerType>().initialUpgradeCost = initialUpgradeCost;
+            currentTower.GetComponent<TowerType>().bloodSplat = bloodSplat;
+            upgradePriceText.text = "$" + currentTower.GetComponentInChildren<TowerType>().upgradeCost; 
         }
-
-        // build the tower top       
-        Transform towerTop = Instantiate(GetTowerTop(towerType));
-        // Y position of the tower top 
-        towerTopHeight += towerTop.GetComponent<Collider>().bounds.size.y;
-        towerTop.SetParent(towerHolder.transform);
-        towerTop.localPosition = new Vector3(0, towerTopHeight, 0);
-
-        // assign current tower and upgrade it to a new level
-        currentTower = towerHolder.GetComponent<TowerCheck>();
-        // add tower type script to the tower and update its stats
-        towerHolder.AddComponent<TowerType>();
-        currentTower.GetComponent<TowerType>().level = level;
-        currentTower.GetComponent<TowerType>().towerType = towerType;
-        currentTower.GetComponent<TowerType>().maxHealth = maxHealth * currentTower.GetComponent<TowerType>().positiveStatMultiplier;
-        currentTower.GetComponent<TowerType>().damageToGive = damageToGive * currentTower.GetComponent<TowerType>().positiveStatMultiplier;
-        currentTower.GetComponent<TowerType>().fireRange = fireRange * currentTower.GetComponent<TowerType>().positiveStatMultiplier;
-        currentTower.GetComponent<TowerType>().rechargeTime = rechargeTime * currentTower.GetComponent<TowerType>().negativeStatMultiplier;
-        currentTower.GetComponent<TowerType>().canHitMultipleEnemies = canHitMultipleEnemies;
-        currentTower.GetComponent<TowerType>().upgradeCost = level * currentTower.GetComponent<TowerType>().initialUpgradeCost;
-        upgradePriceText.text = "$" + currentTower.GetComponentInChildren<TowerType>().upgradeCost;
     }
 
     private void OnTriggerEnter(Collider other)

@@ -20,12 +20,21 @@ namespace TowerDefence.Manager
 
         private Dictionary<TowerTypes, Tower> towers = new Dictionary<TowerTypes, Tower>();
 
-        public void PurchaseTower(TowerPlatform _platform, TowerTypes _towerType)
+        public bool PurchaseTower(TowerPlatform _platform, TowerTypes _towerType)
         {
-            Player.instance.PurchaseTower(towers[_towerType]);
+            // true - if enough money, false - if not enough money
+            bool towerWasBought = Player.instance.PurchaseTower(towers[_towerType]);
 
-            Tower newTower = Instantiate(towers[_towerType]);
-            _platform.AddTower(newTower);
+            if (towerWasBought)
+            {
+                Tower newTower = Instantiate(towers[_towerType]);
+                _platform.AddTower(newTower);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void Awake()
