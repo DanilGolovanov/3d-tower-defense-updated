@@ -235,8 +235,10 @@ namespace TowerDefence.Enemies
         {
             dead = true;
             navAgent.velocity = Vector3.zero;
-            navAgent.enabled = false;
             disableHitDetection();
+            navAgent.enabled = false;
+            enemyAnim.SetBool("isRunning", false);
+            enemyAnim.SetBool("isDead", true);
             StartCoroutine(Die());
         }
         /// <summary>
@@ -244,8 +246,6 @@ namespace TowerDefence.Enemies
         /// </summary>
         IEnumerator Die()
         {
-            enemyAnim.SetBool("isRunning", false);
-            enemyAnim.SetBool("isDead", true);
             yield return new WaitForSeconds(5f);
             onDeath.Invoke(this);
         }
