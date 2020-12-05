@@ -7,7 +7,6 @@ using TowerDefence.Enemies;
 public class PlayerAttack : MonoBehaviour
 {
     [Header ("Player attack calibration")]
-    public static bool reloadCheck;
     public float pistolDamage = 40f;
     public float buckshotDamage = 80f;
     private bool attackCooldown = false;
@@ -38,7 +37,7 @@ public class PlayerAttack : MonoBehaviour
     //set cooldown
     void WeaponShoot()
     {
-        if (Input.GetMouseButtonDown(0) && !attackCooldown && !reloadCheck && !MenuCheck())
+        if (Input.GetMouseButtonDown(0) && !attackCooldown && !weaponManager.GetCurrentSelectedWeapon().isReloading && !MenuCheck())
         {
             // handle melee
             if (weaponManager.GetCurrentSelectedWeapon().tag == Tags.MELEE_TAG)
@@ -48,7 +47,7 @@ public class PlayerAttack : MonoBehaviour
                 attackCooldown = true;
             }
             // handle shoot
-            if (weaponManager.GetCurrentSelectedWeapon().bulletType == WeaponBulletType.BULLET && !WeaponHandler.outOfAmmo)
+            if (weaponManager.GetCurrentSelectedWeapon().bulletType == WeaponBulletType.BULLET && !weaponManager.GetCurrentSelectedWeapon().outOfAmmo)
             {
                 weaponManager.GetCurrentSelectedWeapon().ShootAnimation();
                 weaponManager.GetCurrentSelectedWeapon().RemoveAmmo();
@@ -56,7 +55,7 @@ public class PlayerAttack : MonoBehaviour
                 Invoke("ResetAttackCooldown", 0.7f);
                 attackCooldown = true;
             }
-            if (weaponManager.GetCurrentSelectedWeapon().bulletType == WeaponBulletType.BUCKSHOT && !WeaponHandler.outOfBuckshot)
+            if (weaponManager.GetCurrentSelectedWeapon().bulletType == WeaponBulletType.BUCKSHOT && !weaponManager.GetCurrentSelectedWeapon().outOfBuckshot)
             {
                 weaponManager.GetCurrentSelectedWeapon().ShootAnimation();
                 weaponManager.GetCurrentSelectedWeapon().RemoveBuckshot();

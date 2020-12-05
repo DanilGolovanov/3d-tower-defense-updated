@@ -7,6 +7,11 @@ using UnityEngine.SceneManagement;
 public class IntroScript : MonoBehaviour
 {
     public GameObject introPanel;
+
+    private void Awake()
+    {
+       Time.timeScale = 1;
+    }
     public void AnimatorEventShowTitle()
     {
         introPanel.SetActive(true);

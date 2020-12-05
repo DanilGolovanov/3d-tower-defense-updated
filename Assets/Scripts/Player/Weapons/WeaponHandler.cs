@@ -54,8 +54,8 @@ public class WeaponHandler : MonoBehaviour {
     private int buckshotClip = 2;
     public static int maxAmmo = 12;
     public static int maxBuckshot = 4;
-    public static bool outOfAmmo = false;
-    public static bool outOfBuckshot = false;
+    public bool outOfAmmo = false;
+    public bool outOfBuckshot = false;
     private float reloadTime = 2f;
     public bool isReloading = false;
 
@@ -132,7 +132,7 @@ public class WeaponHandler : MonoBehaviour {
 
         ReloadAnimation();
 
-        yield return new WaitForSeconds(reloadTime);
+        yield return new WaitForSeconds(reloadTime + 1f);
 
         currentAmmo = pistolClip;
         maxAmmo -= pistolClip;
@@ -146,7 +146,7 @@ public class WeaponHandler : MonoBehaviour {
 
         ReloadAnimation();
 
-        yield return new WaitForSeconds(reloadTime);
+        yield return new WaitForSeconds(reloadTime + 1f);
 
         buckshotCurrentAmmo = buckshotClip;
         maxBuckshot -= buckshotClip;
@@ -176,16 +176,6 @@ public class WeaponHandler : MonoBehaviour {
         {
             outOfBuckshot = false;
         }
-    }
-    //animation event reload block toggle
-    //prevents reload bug
-    public void ReloadBlock()
-    {
-      PlayerAttack.reloadCheck = true;
-    }
-    public void ReloadBlockOff()
-    {
-        PlayerAttack.reloadCheck = false;
     }
     //Visual events to be called during animations
     public void ShootAnimation()

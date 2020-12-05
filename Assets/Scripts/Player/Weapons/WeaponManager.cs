@@ -26,7 +26,8 @@ public class WeaponManager : MonoBehaviour
     
     void Update () 
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1) && !weaponSwapCooldown) {
+        if(Input.GetKeyDown(KeyCode.Alpha1) && !weaponSwapCooldown && !weapons[currentWeaponIndex].isReloading) 
+        {
             TurnOnSelectedWeapon(0);
             meleeUI.SetActive(true);
             pistolUI.SetActive(false);
@@ -35,7 +36,8 @@ public class WeaponManager : MonoBehaviour
             weaponSwapCooldown = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2) && !weaponSwapCooldown) {
+        if (Input.GetKeyDown(KeyCode.Alpha2) && !weaponSwapCooldown && !weapons[currentWeaponIndex].isReloading) 
+        {
             TurnOnSelectedWeapon(1);
             pistolUI.SetActive(true);
             shotgunUI.SetActive(false);
@@ -44,7 +46,8 @@ public class WeaponManager : MonoBehaviour
             weaponSwapCooldown = true;
         }
     
-        if (Input.GetKeyDown(KeyCode.Alpha3) && !weaponSwapCooldown) {
+        if (Input.GetKeyDown(KeyCode.Alpha3) && !weaponSwapCooldown && !weapons[currentWeaponIndex].isReloading) 
+        {
             TurnOnSelectedWeapon(2);
             shotgunUI.SetActive(true);
             pistolUI.SetActive(false);
@@ -69,7 +72,7 @@ public class WeaponManager : MonoBehaviour
         // store the current selected weapon index
         currentWeaponIndex = weaponIndex;
     }
-
+    //control method to stop allow weapon swap
     void ResetCooldown()
     {
         weaponSwapCooldown = false;

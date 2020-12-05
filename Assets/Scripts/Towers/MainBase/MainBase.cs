@@ -12,6 +12,7 @@ public class MainBase : MonoBehaviour
     public GameObject mainBaseMenu;
     public Text notifciationText;
     public Text baseHitPoints;
+    public Text baseHitPointsUI;
     public Text currentHP;
     public Text pistolAmmo;
     public Text shotgunAmmo;
@@ -19,6 +20,7 @@ public class MainBase : MonoBehaviour
     private void Update()
     {
         baseHitPoints.text = "Base Hitpoints = " + GameManager.instance.currentbaseHitPoints.ToString();
+        baseHitPointsUI.text = "Base: " + GameManager.instance.currentbaseHitPoints.ToString() + " HP";
         currentHP.text = "Health Points = " + GameManager.instance.currentHealth.ToString();
         pistolAmmo.text = "Pistol Ammo = " + WeaponHandler.maxAmmo.ToString();
         shotgunAmmo.text = "Shotgun Ammo = " + WeaponHandler.maxBuckshot.ToString();
@@ -40,13 +42,13 @@ public class MainBase : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (Input.GetKeyDown(KeyCode.T) && !mainBaseMenu.gameObject.activeSelf)
+        if (Input.GetKeyDown(KeyCode.E) && !mainBaseMenu.gameObject.activeSelf)
         {
             mainBaseMenu.gameObject.SetActive(true);
             Cursor.visible = (true);
             Cursor.lockState = CursorLockMode.None;
         }
-        else if (Input.GetKeyDown(KeyCode.T) && mainBaseMenu.gameObject.activeSelf)
+        else if (Input.GetKeyDown(KeyCode.E) && mainBaseMenu.gameObject.activeSelf)
         {
             mainBaseMenu.gameObject.SetActive(false);
             Cursor.visible = (false);

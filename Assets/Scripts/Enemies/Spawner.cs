@@ -35,11 +35,11 @@ namespace TowerDefence.Enemies
         public Text waveState;
 
         //sky colours
-        public Color32 nonWave = new Color32(120, 120, 120, 255);
+        public Color32 nonWave = new Color32(34, 34, 34, 255);
         public Color32 inWave = new Color32(140, 1, 0, 255);
         public float duration = 5;
         public Light directionalLight;
-        public Color32 nonWaveLight = new Color32(255, 255, 255, 255);
+        public Color32 nonWaveLight = new Color32(171, 171, 171, 255);
         public Color32 inWaveLight = new Color32(255, 148, 148, 255);
 
         //audio
@@ -55,6 +55,7 @@ namespace TowerDefence.Enemies
             enemyManager = EnemyManager.instance;
             audioListener = GameObject.FindGameObjectWithTag("FPSCamera").GetComponent<AudioListener>();
             audioSource = GameObject.FindGameObjectWithTag("Ambiance").GetComponent<AudioSource>();
+            RenderSettings.skybox.SetColor("_Tint", nonWave);
         }
         //check if enimes are alive in waiting state
         //complete wave if all are dead

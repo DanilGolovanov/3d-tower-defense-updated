@@ -71,7 +71,7 @@ namespace TowerDefence
 
         void Update()
         {
-            moneyText.text = "$ " + money.ToString();
+            moneyText.text = "Money: $" + money.ToString();
         }
         public void TakeDamage(float damage)
         {
